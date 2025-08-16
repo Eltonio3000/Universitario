@@ -1,0 +1,82 @@
+Introdução a segurança cibernética
+
+++++>>   Engenheiro de segurança e analista de segurança   <<++++
+
+Um engenheiro de segurança e um analista de segurança atuam na mesma área — segurança da informação/cibersegurança — mas têm focos e responsabilidades diferentes.
+
+> O Engenheiro de Segurança
+Função principal: projetar, implementar e manter sistemas e soluções de segurança.
+Perfil: mais técnico, com foco em infraestrutura, redes e arquitetura de segurança.
+
+Atividades comuns:
+Configuração de firewalls, IDS/IPS, VPNs.
+Desenvolvimento de políticas e arquiteturas seguras.
+Automatização de processos de defesa.
+Análise e aplicação de patches e atualizações.
+Trabalhar com hardening de sistemas e criptografia.
+
+Ferramentas frequentes: sistemas de detecção de intrusão, SIEM, ferramentas de varredura de vulnerabilidades, scripts de automação.
+💡 Pense nele como o “arquiteto e construtor” das defesas.
+
+> O Analista de Segurança
+
+Função principal: monitorar, investigar e responder a incidentes.
+Perfil: mais voltado para operação, monitoramento e análise de riscos.
+
+Atividades comuns:
+Acompanhar alertas e eventos de segurança.
+Investigar atividades suspeitas.
+Realizar threat hunting (caça a ameaças).
+Analisar relatórios e logs.
+Colaborar no plano de resposta a incidentes.
+
+Ferramentas frequentes: SIEM (Splunk, QRadar, ELK), antivírus corporativo, sistemas de monitoramento de rede.
+💡 Pense nele como o “vigilante e investigador” das defesas.
+
+++++>> Principais termos e conceitos de segurança cibernética <<++++
+
+Conformidade é o processamento de adesão a padrões internos e regulamentos externos e permite que as organizações evitem multas e violações de segurança.
+
+Frameworks de segurança são diretrizes usadas para criar planos que ajudem a reduzir os riscos e as ameaças aos dados e à privacidade dos dados.
+
+Controles de segurança são salvaguardas projetadas para reduzir riscos de segurança específicos. Eles são usados com os frameworks de segurança para estabelecer uma postura de segurança forte.
+
+A postura de segurança é a capacidade da organização de gerenciar a defesa de recursos e dados críticos e reagir a mudanças. Uma postura de segurança forte leva a um risco menor para a organização.
+
+Um agente de ameaça, ou atacante mal-intencionado, é qualquer pessoa ou grupo que represente um risco à segurança. Esse risco pode estar relacionado a computadores, aplicativos, redes e dados.
+
+Uma ameaça interna pode ser um funcionário ou ex-funcionário, um fornecedor externo ou um parceiro confiável que represente um risco à segurança. Às vezes, uma ameaça interna é acidental. Por exemplo, um funcionário que clica acidentalmente em um link de e-mail malicioso seria considerado uma ameaça acidental. Outras vezes, o agente da ameaça interna se envolve intencionalmente em atividades de risco, como o acesso não autorizado a dados.
+
+Segurança de rede é a prática de manter a infraestrutura de rede de uma organização protegida contra acesso não autorizado. Isso inclui dados, serviços, sistemas e dispositivos armazenados na rede de computadores de uma organização.
+
+Segurança na nuvem é o processamento para garantir que os recursos armazenados na nuvem sejam configurados ou definidos corretamente, e que o acesso a esses recursos seja limitado a usuários autorizados. A Nuvem é uma rede composta por um conjunto de servidores ou computadores que armazenam recursos e dados em locais físicos remotos, conhecidos como data centers, que podem ser acessados pela Internet. A Segurança na nuvem é um subcampo crescente da segurança cibernética que se concentra especificamente na proteção de dados, aplicativos e infraestrutura na nuvem.
+
+Programação é um processamento que pode ser usado para criar um conjunto específico de instruções para um computador executar tarefas. Essas tarefas podem incluir:
+Automação de tarefas repetitivas (por exemplo, pesquisar uma lista de domínios maliciosos)
+Análise do Tráfego da Web
+Alerta de atividades suspeitas
+
+> SIEM significa Security Information and Event Management (Gerenciamento de Informações e Eventos de Segurança).
+É uma plataforma centralizada que coleta, armazena, analisa e correlaciona dados de segurança vindos de várias fontes da rede, como: Logs de servidores, Eventos de firewall, Alertas de antivírus, Registros de IDS/IPS, Atividades de usuários, Aplicações corporativas.
+> O que o SIEM faz
+Coleta de dados → Pega logs e eventos de diferentes dispositivos e sistemas.
+Normalização → Converte tudo para um formato padrão para análise.
+Correlação → Conecta eventos aparentemente isolados para identificar possíveis ameaças.
+Detecção → Gera alertas automáticos quando encontra padrões suspeitos.
+Relatórios e compliance → Facilita auditorias e conformidade com leis (LGPD, PCI-DSS, ISO 27001 etc.).
+> Por que ele é importante
+Sem um SIEM, cada sistema teria seus próprios logs, e os analistas teriam que olhar tudo separadamente (um caos).
+Com um SIEM, você vê tudo em um painel só e consegue identificar ataques que se espalham por diferentes pontos.
+> Exemplos de SIEM famosos
+Splunk
+IBM QRadar
+ArcSight
+Elastic SIEM (baseado no ELK Stack)
+Microsoft Sentinel
+> Ferramentas de gerenciamento de eventos e informações de segurança (SIEM): As ferramentas SIEM coletam e analisam dados de registros, ou registros de eventos, como comportamento incomum de login, e dão suporte à capacidade dos analistas de monitorar atividades críticas em uma organização. Isso ajuda os profissionais de segurança cibernética a identificar e analisar possíveis ameaças à segurança, Riscos e vulnerabilidades com mais eficiência.
+
+Sistemas de detecção de intrusão (IDSs): Os analistas de segurança cibernética usam IDSs para monitorar a atividade do sistema e alertas de possíveis intrusões. É importante familiarizar-se com os IDSs porque eles são uma ferramenta chave que toda organização usa para proteger recursos e dados. Por exemplo, você pode usar um IDS para monitorar as redes em busca de sinais de atividade mal-intencionada, como acesso não autorizado a uma rede.
+
+Informações de identificação pessoal (PII): Qualquer informação usada para inferir a identidade de um indivíduo
+
+Informações sensíveis de identificação pessoal (SPII): Um tipo específico de PII que se enquadra em diretrizes de manuseio mais rigorosas

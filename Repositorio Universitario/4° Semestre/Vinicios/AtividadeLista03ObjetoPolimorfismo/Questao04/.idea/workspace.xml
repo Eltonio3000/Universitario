@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="06a2ef88-e6d3-433a-a6ba-c0cded0a1707" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/Aividade01ListaCircular/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/Aividade01ListaCircular/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/Aividade01ListaCircular/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/Aividade01ListaCircular/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/Aividade01ListaCircular/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/Aividade01ListaCircular/Aividade01ListaCircular.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/Aividade01ListaCircular/src/ListaCircular.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/Aividade01ListaCircular/src/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/Aividade01ListaCircular/src/No.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/AtividadeFixaçãoEstruturaDados01/Questao02/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/AtividadeFixaçãoEstruturaDados01/Questao02/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/AtividadeFixaçãoEstruturaDados01/Questao02/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/AtividadeFixaçãoEstruturaDados01/Questao02/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/AtividadeFixaçãoEstruturaDados01/Questao02/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/AtividadeFixaçãoEstruturaDados01/Questao02/Questao02.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/AtividadeFixaçãoEstruturaDados01/Questao02/src/ListaLigada.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/AtividadeFixaçãoEstruturaDados01/Questao02/src/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/AtividadeFixaçãoEstruturaDados01/Questao02/src/No.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/AtividadeFixaçãoEstruturaDados01/Questao03/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/AtividadeFixaçãoEstruturaDados01/Questao03/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/AtividadeFixaçãoEstruturaDados01/Questao03/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/AtividadeFixaçãoEstruturaDados01/Questao03/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/AtividadeFixaçãoEstruturaDados01/Questao03/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/AtividadeFixaçãoEstruturaDados01/Questao03/Questao03.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/AtividadeFixaçãoEstruturaDados01/Questao03/src/ListaLigada.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/AtividadeFixaçãoEstruturaDados01/Questao03/src/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/AtividadeFixaçãoEstruturaDados01/Questao03/src/No.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/AtividadeFixaçãoEstruturaDados01/Questao04/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/AtividadeFixaçãoEstruturaDados01/Questao04/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/AtividadeFixaçãoEstruturaDados01/Questao04/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/AtividadeFixaçãoEstruturaDados01/Questao04/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/AtividadeFixaçãoEstruturaDados01/Questao04/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/AtividadeFixaçãoEstruturaDados01/Questao04/Questao04.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/AtividadeFixaçãoEstruturaDados01/Questao04/src/ListaLigada.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/AtividadeFixaçãoEstruturaDados01/Questao04/src/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/AtividadeFixaçãoEstruturaDados01/Questao04/src/No.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/AtividadeFixaçãoEstruturaDados01/Questao05/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/AtividadeFixaçãoEstruturaDados01/Questao05/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/AtividadeFixaçãoEstruturaDados01/Questao05/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/AtividadeFixaçãoEstruturaDados01/Questao05/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/AtividadeFixaçãoEstruturaDados01/Questao05/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/AtividadeFixaçãoEstruturaDados01/Questao05/Questao05.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/AtividadeFixaçãoEstruturaDados01/Questao05/src/LIstaLigada.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/AtividadeFixaçãoEstruturaDados01/Questao05/src/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/AtividadeFixaçãoEstruturaDados01/Questao05/src/No.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/AtividadeFixaçãoEstruturaDados01/Questao06/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/AtividadeFixaçãoEstruturaDados01/Questao06/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/AtividadeFixaçãoEstruturaDados01/Questao06/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/AtividadeFixaçãoEstruturaDados01/Questao06/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/AtividadeFixaçãoEstruturaDados01/Questao06/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/AtividadeFixaçãoEstruturaDados01/Questao06/Questao06.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/AtividadeFixaçãoEstruturaDados01/Questao06/src/ListaLigada.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/AtividadeFixaçãoEstruturaDados01/Questao06/src/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/AtividadeFixaçãoEstruturaDados01/Questao06/src/No.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/AtividadeFixaçãoEstruturaDados01/Questao07/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/AtividadeFixaçãoEstruturaDados01/Questao07/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/AtividadeFixaçãoEstruturaDados01/Questao07/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/AtividadeFixaçãoEstruturaDados01/Questao07/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/AtividadeFixaçãoEstruturaDados01/Questao07/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/AtividadeFixaçãoEstruturaDados01/Questao07/Questao07.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/AtividadeFixaçãoEstruturaDados01/Questao07/src/ListaLigada.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/AtividadeFixaçãoEstruturaDados01/Questao07/src/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/AtividadeFixaçãoEstruturaDados01/Questao07/src/No.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/AtividadeFixaçãoEstruturaDados01/Questao08/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/AtividadeFixaçãoEstruturaDados01/Questao08/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/AtividadeFixaçãoEstruturaDados01/Questao08/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/AtividadeFixaçãoEstruturaDados01/Questao08/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/AtividadeFixaçãoEstruturaDados01/Questao08/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/AtividadeFixaçãoEstruturaDados01/Questao08/Questao08.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/AtividadeFixaçãoEstruturaDados01/Questao08/src/ListaLigada.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/AtividadeFixaçãoEstruturaDados01/Questao08/src/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/AtividadeFixaçãoEstruturaDados01/Questao08/src/No.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/AtividadeFixaçãoEstruturaDados01/Questao09/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/AtividadeFixaçãoEstruturaDados01/Questao09/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/AtividadeFixaçãoEstruturaDados01/Questao09/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/AtividadeFixaçãoEstruturaDados01/Questao09/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/AtividadeFixaçãoEstruturaDados01/Questao09/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/AtividadeFixaçãoEstruturaDados01/Questao09/Questao09.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/AtividadeFixaçãoEstruturaDados01/Questao09/src/ListaLigada.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/AtividadeFixaçãoEstruturaDados01/Questao09/src/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/AtividadeFixaçãoEstruturaDados01/Questao09/src/No.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/AtividadeFixaçãoEstruturaDados01/Questão01/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/AtividadeFixaçãoEstruturaDados01/Questão01/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/AtividadeFixaçãoEstruturaDados01/Questão01/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/AtividadeFixaçãoEstruturaDados01/Questão01/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/AtividadeFixaçãoEstruturaDados01/Questão01/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/AtividadeFixaçãoEstruturaDados01/Questão01/Aula02EstruturaDadosNo.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/AtividadeFixaçãoEstruturaDados01/Questão01/src/ListaLigada.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/AtividadeFixaçãoEstruturaDados01/Questão01/src/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/AtividadeFixaçãoEstruturaDados01/Questão01/src/No.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/AtividadeFixaçãoEstruturaDados01/Questão01/src/Ordenacao.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/Aula01EstruturaDados/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/Aula01EstruturaDados/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/Aula01EstruturaDados/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/Aula01EstruturaDados/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/Aula01EstruturaDados/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/Aula01EstruturaDados/Aula01EstruturaDados(No).iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/Aula01EstruturaDados/src/ListaLigada.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/Aula01EstruturaDados/src/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Amanda/Aula01EstruturaDados/src/No.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AtividadeLista02Objetos/Questao01/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AtividadeLista02Objetos/Questao01/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AtividadeLista02Objetos/Questao01/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AtividadeLista02Objetos/Questao01/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AtividadeLista02Objetos/Questao01/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AtividadeLista02Objetos/Questao01/Questao01.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AtividadeLista02Objetos/Questao01/src/Carro.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AtividadeLista02Objetos/Questao01/src/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AtividadeLista02Objetos/Questao01/src/Moto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AtividadeLista02Objetos/Questao01/src/Veiculo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AtividadeLista02Objetos/Questao02/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AtividadeLista02Objetos/Questao02/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AtividadeLista02Objetos/Questao02/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AtividadeLista02Objetos/Questao02/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AtividadeLista02Objetos/Questao02/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AtividadeLista02Objetos/Questao02/Questao02.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AtividadeLista02Objetos/Questao02/src/ContaBancaria.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AtividadeLista02Objetos/Questao02/src/ContaCorrente.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AtividadeLista02Objetos/Questao02/src/ContaPoupanca.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AtividadeLista02Objetos/Questao02/src/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AtividadeLista02Objetos/Questao03/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AtividadeLista02Objetos/Questao03/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AtividadeLista02Objetos/Questao03/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AtividadeLista02Objetos/Questao03/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AtividadeLista02Objetos/Questao03/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AtividadeLista02Objetos/Questao03/Questao03.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AtividadeLista02Objetos/Questao03/src/Aluno.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AtividadeLista02Objetos/Questao03/src/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AtividadeLista02Objetos/Questao03/src/Pessoa.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AtividadeLista02Objetos/Questao03/src/Professor.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AtividadeLista02Objetos/Questao04/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AtividadeLista02Objetos/Questao04/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AtividadeLista02Objetos/Questao04/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AtividadeLista02Objetos/Questao04/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AtividadeLista02Objetos/Questao04/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AtividadeLista02Objetos/Questao04/Questao04.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AtividadeLista02Objetos/Questao04/src/Animal.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AtividadeLista02Objetos/Questao04/src/Cachorro.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AtividadeLista02Objetos/Questao04/src/Gato.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AtividadeLista02Objetos/Questao04/src/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AtividadeLista02Objetos/Questao05/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AtividadeLista02Objetos/Questao05/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AtividadeLista02Objetos/Questao05/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AtividadeLista02Objetos/Questao05/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AtividadeLista02Objetos/Questao05/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AtividadeLista02Objetos/Questao05/Questao05.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AtividadeLista02Objetos/Questao05/src/Carta.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AtividadeLista02Objetos/Questao05/src/CartaBaralhoEspanhol.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AtividadeLista02Objetos/Questao05/src/CartaBaralhoPoker.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AtividadeLista02Objetos/Questao05/src/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../gustavo_Aula_01_Objetos/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../gustavo_Aula_01_Objetos/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../gustavo_Aula_01_Objetos/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../gustavo_Aula_01_Objetos/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../gustavo_Aula_01_Objetos/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../gustavo_Aula_01_Objetos/Aula_01_Objetos.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../gustavo_Aula_01_Objetos/src/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../gustavo_Aula_01_Objetos/src/Pessoa.java" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../../../.." />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 1
+}]]></component>
+  <component name="ProjectId" id="31FrlXk4CG1BaMTYfGseaKvJdcn" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Main.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "dart.analysis.tool.window.visible": "false",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "configurable.group.editor",
+    "show.migrate.to.gradle.popup": "false",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-a94e463ab2e7-intellij.indexing.shared.core-IU-243.26053.27" />
+        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-IU-243.26053.27" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="06a2ef88-e6d3-433a-a6ba-c0cded0a1707" name="Changes" comment="" />
+      <created>1755130814612</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1755130814612</updated>
+      <workItem from="1755130815735" duration="964000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
