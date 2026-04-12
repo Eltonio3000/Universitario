@@ -1,0 +1,134 @@
+/* src/App.css */
+
+/* Centraliza tudo e define uma cor de fundo suave para o site */
+body {
+  background-color: #eef2f3;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+}
+
+/* Caixa principal que segura o conteúdo */
+.container {
+  width: 100%;
+  max-width: 500px;
+  margin-top: 50px;
+  padding: 30px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box; /* Garante que o padding não aumente o tamanho da caixa */
+}
+
+h1 {
+  color: #2c3e50;
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 30px;
+}
+
+/* Estilo dos campos de texto (Inputs) */
+input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 1px solid #dcdde1;
+  border-radius: 6px;
+  font-size: 16px;
+  display: block;
+  box-sizing: border-box;
+}
+
+/* Botão de Adicionar */
+button {
+  width: 100%;
+  padding: 12px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+button:hover {
+  background-color: #2980b9;
+}
+
+/* Estilo da lista de livros */
+ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 30px;
+}
+
+li {
+  background-color: #f9f9f9;
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  border-left: 5px solid #3498db;
+  display: flex;
+  flex-direction: column; /* Título em cima, autor embaixo */
+}
+
+li strong {
+  color: #2c3e50;
+  font-size: 18px;
+}
+
+li span {
+  color: #7f8c8d;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+/* Faz com que o título e o autor fiquem um sobre o outro */
+.info-livro {
+  display: flex;
+  flex-direction: column; /* Alinha os itens em coluna (um em baixo do outro) */
+  margin-bottom: 10px;    /* Dá um espaço para o botão não colar */
+}
+
+.info-livro strong {
+  font-size: 1.1em;
+  color: #2c3e50;
+}
+
+.info-livro .autor {
+  font-size: 0.9em;
+  color: #7f8c8d;        /* Um cinza mais suave para o autor */
+  margin-top: 4px;       /* Espacinho entre título e autor */
+}
+
+/* Ajuste do LI para ficar mais arrumado */
+li {
+  display: flex;
+  flex-direction: column; /* Coloca o bloco de texto em cima e o botão em baixo */
+  align-items: flex-start; /* Alinha tudo à esquerda */
+  background: #f9f9f9;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  border-left: 5px solid #3498db;
+}
+
+.btn-editar {
+  width: 100%;           /* Se quiseres o botão de editar ocupando a largura toda */
+  background-color: #f1c40f;
+  color: white;
+  border: none;
+  padding: 8px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.botoes-acao {
+  display: flex;
+  gap: 10px; /* Espaço entre os botões */
+  margin-top: 10px;
+}

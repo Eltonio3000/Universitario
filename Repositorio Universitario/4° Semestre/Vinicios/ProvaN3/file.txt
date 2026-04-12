@@ -1,0 +1,1000 @@
+// ==================== CAMADA DE MODELO (MODEL) ====================
+
+// Classe abstrata base para entidades
+abstract class Entity {
+    protected int id;
+
+    public int getId() {
+        return id;
+    }
+
+    public abstract String toCSV();
+}
+
+// Classe User com encapsulamento
+class User extends Entity {
+    private String username;
+    private String password;
+
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
+    // Getters
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    // Setters com validação
+    public void setUsername(String username) {
+        if (username == null || username.trim().isEmpty()) {
+            throw new IllegalArgumentException("Username não pode ser vazio");
+        }
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        if (password == null || password.trim().isEmpty()) {
+            throw new IllegalArgumentException("Password não pode ser vazio");
+        }
+        this.password = password;
+    }
+
+    @Override
+    public String toCSV() {
+        return username + ";" + password;
+    }
+
+    public static User fromCSV(String line) {
+        String[] parts = line.split(";");
+        if (parts.length != 2) {
+            throw new IllegalArgumentException("Formato inválido de usuário");
+        }
+        return new User(parts[0], parts[1]);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (!(obj instanceof User)) return false;
+        User other = (User) obj;
+        return username.equals(other.username);
+    }
+
+    @Override
+    public int hashCode() {
+        return username.hashCode();
+    }
+}
+
+// Enum para Prioridade
+enum Priority {
+    BAIXA("Baixa"),
+    MEDIA("Média"),
+    ALTA("Alta");
+
+    private String displayName;
+
+    Priority(String displayName) {
+        this.displayName = displayName;
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public static Priority fromString(String text) {
+        for (Priority p : Priority.values()) {
+            if (p.displayName.equals(text)) {
+                return p;
+            }
+        }
+        throw new IllegalArgumentException("Prioridade inválida: " + text);
+    }
+}
+
+// Enum para Status
+enum Status {
+    PENDENTE("Pendente"),
+    EM_PROGRESSO("Em Progresso"),
+    CONCLUIDA("Concluída");
+
+    private String displayName;
+
+    Status(String displayName) {
+        this.displayName = displayName;
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public static Status fromString(String text) {
+        for (Status s : Status.values()) {
+            if (s.displayName.equals(text)) {
+                return s;
+            }
+        }
+        throw new IllegalArgumentException("Status inválido: " + text);
+    }
+}
+
+// Classe Task com encapsulamento completo
+class Task extends Entity {
+    private static int counter = 1;
+    private String title;
+    private String description;
+    private Priority priority;
+    private Status status;
+    private String dueDate;
+
+    // Construtor para nova tarefa
+    public Task(String title, String description, Priority priority, Status status, String dueDate) {
+        this.id = counter++;
+        setTitle(title);
+        setDescription(description);
+        setPriority(priority);
+        setStatus(status);
+        setDueDate(dueDate);
+    }
+
+    // Construtor para carregar do arquivo
+    public Task(int id, String title, String description, Priority priority, Status status, String dueDate) {
+        this.id = id;
+        setTitle(title);
+        setDescription(description);
+        setPriority(priority);
+        setStatus(status);
+        setDueDate(dueDate);
+        if (id >= counter) counter = id + 1;
+    }
+
+    // Getters
+    public String getTitle() { return title; }
+    public String getDescription() { return description; }
+    public Priority getPriority() { return priority; }
+    public Status getStatus() { return status; }
+    public String getDueDate() { return dueDate; }
+
+    // Setters com validação
+    public void setTitle(String title) {
+        if (title == null || title.trim().isEmpty()) {
+            throw new IllegalArgumentException("O título não pode estar vazio!");
+        }
+        this.title = title;
+    }
+
+    public void setDescription(String description) {
+        if (description == null || description.trim().isEmpty()) {
+            throw new IllegalArgumentException("A descrição não pode estar vazia!");
+        }
+        this.description = description;
+    }
+
+    public void setPriority(Priority priority) {
+        if (priority == null) {
+            throw new IllegalArgumentException("A prioridade não pode ser nula!");
+        }
+        this.priority = priority;
+    }
+
+    public void setStatus(Status status) {
+        if (status == null) {
+            throw new IllegalArgumentException("O status não pode ser nulo!");
+        }
+        this.status = status;
+    }
+
+    public void setDueDate(String dueDate) {
+        if (dueDate == null || dueDate.trim().isEmpty()) {
+            throw new IllegalArgumentException("A data limite não pode estar vazia!");
+        }
+        if (!dueDate.matches("\\d{2}/\\d{2}/\\d{4}")) {
+            throw new IllegalArgumentException("Data inválida! Use o formato dd/MM/yyyy");
+        }
+        this.dueDate = dueDate;
+    }
+
+    @Override
+    public String toCSV() {
+        return id + ";" + title + ";" + description + ";" +
+               priority.getDisplayName() + ";" + status.getDisplayName() + ";" + dueDate;
+    }
+
+    public static Task fromCSV(String line) {
+        String[] parts = line.split(";");
+        if (parts.length != 6) {
+            throw new IllegalArgumentException("Formato inválido de tarefa");
+        }
+        return new Task(
+            Integer.parseInt(parts[0]),
+            parts[1],
+            parts[2],
+            Priority.fromString(parts[3]),
+            Status.fromString(parts[4]),
+            parts[5]
+        );
+    }
+
+    @Override
+    public String toString() {
+        return "Task[id=" + id + ", title=" + title + ", status=" + status + "]";
+    }
+}
+
+// ==================== CAMADA DE PERSISTÊNCIA (DAO) ====================
+
+// Interface genérica para operações de persistência
+interface IRepository<T> {
+    void save(T entity) throws IOException;
+    void saveAll(java.util.List<T> entities) throws IOException;
+    java.util.List<T> loadAll() throws IOException;
+    void delete(T entity) throws IOException;
+}
+
+// Classe abstrata base para repositórios
+abstract class FileRepository<T> implements IRepository<T> {
+    protected String filename;
+
+    public FileRepository(String filename) {
+        this.filename = filename;
+    }
+
+    protected abstract T parseLine(String line);
+    protected abstract String entityToLine(T entity);
+
+    @Override
+    public java.util.List<T> loadAll() throws IOException {
+        java.util.ArrayList<T> items = new java.util.ArrayList<>();
+        java.io.File file = new java.io.File(filename);
+
+        if (!file.exists()) {
+            return items;
+        }
+
+        try (java.io.BufferedReader br = new java.io.BufferedReader(new java.io.FileReader(file))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                if (!line.trim().isEmpty()) {
+                    try {
+                        items.add(parseLine(line));
+                    } catch (Exception e) {
+                        System.err.println("Erro ao processar linha: " + line + " - " + e.getMessage());
+                    }
+                }
+            }
+        }
+        return items;
+    }
+
+    @Override
+    public void saveAll(java.util.List<T> entities) throws IOException {
+        try (java.io.BufferedWriter bw = new java.io.BufferedWriter(new java.io.FileWriter(filename))) {
+            for (T entity : entities) {
+                bw.write(entityToLine(entity));
+                bw.newLine();
+            }
+        }
+    }
+
+    @Override
+    public void save(T entity) throws IOException {
+        java.util.List<T> all = loadAll();
+        all.add(entity);
+        saveAll(all);
+    }
+
+    @Override
+    public void delete(T entity) throws IOException {
+        java.util.List<T> all = loadAll();
+        all.remove(entity);
+        saveAll(all);
+    }
+}
+
+// Repositório específico para usuários
+class UserRepository extends FileRepository<User> {
+    private static final String USERS_FILE = "users.txt";
+
+    public UserRepository() {
+        super(USERS_FILE);
+        initializeDefaultUser();
+    }
+
+    private void initializeDefaultUser() {
+        try {
+            java.util.List<User> users = loadAll();
+            if (users.isEmpty()) {
+                save(new User("admin", "admin123"));
+            }
+        } catch (IOException e) {
+            System.err.println("Erro ao inicializar usuário padrão: " + e.getMessage());
+        }
+    }
+
+    @Override
+    protected User parseLine(String line) {
+        return User.fromCSV(line);
+    }
+
+    @Override
+    protected String entityToLine(User entity) {
+        return entity.toCSV();
+    }
+
+    public User authenticate(String username, String password) throws IOException {
+        java.util.List<User> users = loadAll();
+        for (User user : users) {
+            if (user.getUsername().equals(username) && user.getPassword().equals(password)) {
+                return user;
+            }
+        }
+        return null;
+    }
+}
+
+// Repositório específico para tarefas
+class TaskRepository extends FileRepository<Task> {
+    private static final String TASKS_FILE = "tasks.csv";
+
+    public TaskRepository() {
+        super(TASKS_FILE);
+    }
+
+    @Override
+    protected Task parseLine(String line) {
+        return Task.fromCSV(line);
+    }
+
+    @Override
+    protected String entityToLine(Task entity) {
+        return entity.toCSV();
+    }
+
+    public Task findById(int id) throws IOException {
+        java.util.List<Task> tasks = loadAll();
+        for (Task task : tasks) {
+            if (task.getId() == id) {
+                return task;
+            }
+        }
+        return null;
+    }
+
+    public void update(Task updatedTask) throws IOException {
+        java.util.List<Task> tasks = loadAll();
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i).getId() == updatedTask.getId()) {
+                tasks.set(i, updatedTask);
+                break;
+            }
+        }
+        saveAll(tasks);
+    }
+}
+
+// Sistema de Log com Singleton
+class LogService {
+    private static LogService instance;
+    private static final String LOG_FILE = "history.log";
+    private String currentUser;
+
+    private LogService() {}
+
+    public static LogService getInstance() {
+        if (instance == null) {
+            instance = new LogService();
+        }
+        return instance;
+    }
+
+    public void setCurrentUser(String username) {
+        this.currentUser = username;
+    }
+
+    public void log(String action) {
+        try (java.io.BufferedWriter bw = new java.io.BufferedWriter(
+                new java.io.FileWriter(LOG_FILE, true))) {
+            String timestamp = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+                .format(new java.util.Date());
+            String logEntry = "[" + timestamp + "] Usuário: " + currentUser + " - " + action;
+            bw.write(logEntry);
+            bw.newLine();
+        } catch (IOException e) {
+            System.err.println("Erro ao registrar log: " + e.getMessage());
+        }
+    }
+
+    public String readLog() throws IOException {
+        java.io.File logFile = new java.io.File(LOG_FILE);
+        if (!logFile.exists()) {
+            return "Nenhum histórico disponível.";
+        }
+
+        StringBuilder log = new StringBuilder();
+        try (java.io.BufferedReader br = new java.io.BufferedReader(
+                new java.io.FileReader(logFile))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                log.append(line).append("\n");
+            }
+        }
+        return log.toString();
+    }
+}
+
+// ==================== CAMADA DE SERVIÇO (SERVICE) ====================
+
+// Serviço de Autenticação
+class AuthenticationService {
+    private UserRepository userRepository;
+    private LogService logService;
+
+    public AuthenticationService() {
+        this.userRepository = new UserRepository();
+        this.logService = LogService.getInstance();
+    }
+
+    public boolean authenticate(String username, String password) {
+        try {
+            User user = userRepository.authenticate(username, password);
+            if (user != null) {
+                logService.setCurrentUser(username);
+                logService.log("Login realizado com sucesso");
+                return true;
+            }
+            return false;
+        } catch (IOException e) {
+            System.err.println("Erro na autenticação: " + e.getMessage());
+            return false;
+        }
+    }
+}
+
+// Serviço de Tarefas com lógica de negócio
+class TaskService {
+    private TaskRepository taskRepository;
+    private LogService logService;
+    private java.util.List<TaskObserver> observers;
+
+    public TaskService() {
+        this.taskRepository = new TaskRepository();
+        this.logService = LogService.getInstance();
+        this.observers = new java.util.ArrayList<>();
+    }
+
+    public void addObserver(TaskObserver observer) {
+        observers.add(observer);
+    }
+
+    private void notifyObservers() {
+        for (TaskObserver observer : observers) {
+            observer.onTasksChanged();
+        }
+    }
+
+    public java.util.List<Task> getAllTasks() {
+        try {
+            return taskRepository.loadAll();
+        } catch (IOException e) {
+            System.err.println("Erro ao carregar tarefas: " + e.getMessage());
+            return new java.util.ArrayList<>();
+        }
+    }
+
+    public void createTask(Task task) throws IOException {
+        taskRepository.save(task);
+        logService.log("Tarefa criada: " + task.getTitle());
+        notifyObservers();
+    }
+
+    public void updateTask(Task task) throws IOException {
+        taskRepository.update(task);
+        logService.log("Tarefa atualizada: ID " + task.getId());
+        notifyObservers();
+    }
+
+    public void deleteTask(int taskId) throws IOException {
+        Task task = taskRepository.findById(taskId);
+        if (task != null) {
+            java.util.List<Task> tasks = getAllTasks();
+            tasks.removeIf(t -> t.getId() == taskId);
+            taskRepository.saveAll(tasks);
+            logService.log("Tarefa excluída: ID " + taskId);
+            notifyObservers();
+        }
+    }
+
+    public void saveAll(java.util.List<Task> tasks) throws IOException {
+        taskRepository.saveAll(tasks);
+        logService.log("Todas as tarefas salvas");
+    }
+}
+
+// Interface Observer para atualização de views
+interface TaskObserver {
+    void onTasksChanged();
+}
+
+// ==================== CAMADA DE VISUALIZAÇÃO (VIEW) ====================
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.table.*;
+
+// Classe base abstrata para frames
+abstract class BaseFrame extends JFrame {
+    protected void centerOnScreen() {
+        setLocationRelativeTo(null);
+    }
+
+    protected void showError(String message) {
+        JOptionPane.showMessageDialog(this, message, "Erro", JOptionPane.ERROR_MESSAGE);
+    }
+
+    protected void showSuccess(String message) {
+        JOptionPane.showMessageDialog(this, message, "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    protected void showWarning(String message) {
+        JOptionPane.showMessageDialog(this, message, "Aviso", JOptionPane.WARNING_MESSAGE);
+    }
+
+    protected boolean confirm(String message) {
+        return JOptionPane.showConfirmDialog(this, message, "Confirmação",
+            JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION;
+    }
+}
+
+// Tela de Login
+class LoginFrame extends BaseFrame {
+    private JTextField usernameField;
+    private JPasswordField passwordField;
+    private AuthenticationService authService;
+
+    public LoginFrame() {
+        this.authService = new AuthenticationService();
+        initializeFrame();
+        initializeComponents();
+        centerOnScreen();
+        setVisible(true);
+    }
+
+    private void initializeFrame() {
+        setTitle("Sistema de Gerenciamento de Tarefas - Login");
+        setSize(400, 250);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+
+    private void initializeComponents() {
+        JPanel panel = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(5, 5, 5, 5);
+
+        // Título
+        JLabel titleLabel = new JLabel("Bem-vindo ao Sistema de Tarefas");
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        gbc.gridx = 0; gbc.gridy = 0; gbc.gridwidth = 2;
+        panel.add(titleLabel, gbc);
+
+        // Campo Usuário
+        gbc.gridwidth = 1; gbc.gridy = 1;
+        panel.add(new JLabel("Usuário:"), gbc);
+        gbc.gridx = 1;
+        usernameField = new JTextField(15);
+        panel.add(usernameField, gbc);
+
+        // Campo Senha
+        gbc.gridx = 0; gbc.gridy = 2;
+        panel.add(new JLabel("Senha:"), gbc);
+        gbc.gridx = 1;
+        passwordField = new JPasswordField(15);
+        passwordField.addActionListener(e -> performLogin());
+        panel.add(passwordField, gbc);
+
+        // Botão Login
+        JButton loginButton = new JButton("Entrar");
+        loginButton.addActionListener(e -> performLogin());
+        gbc.gridx = 0; gbc.gridy = 3; gbc.gridwidth = 2;
+        panel.add(loginButton, gbc);
+
+        // Info
+        JLabel infoLabel = new JLabel("Usuário padrão: admin / Senha: admin123");
+        infoLabel.setFont(new Font("Arial", Font.ITALIC, 10));
+        gbc.gridy = 4;
+        panel.add(infoLabel, gbc);
+
+        add(panel);
+    }
+
+    private void performLogin() {
+        String username = usernameField.getText().trim();
+        String password = new String(passwordField.getPassword());
+
+        if (username.isEmpty() || password.isEmpty()) {
+            showWarning("Por favor, preencha todos os campos!");
+            return;
+        }
+
+        if (authService.authenticate(username, password)) {
+            dispose();
+            new MainFrame(username);
+        } else {
+            showError("Usuário ou senha incorretos!");
+            passwordField.setText("");
+        }
+    }
+}
+
+// Tela Principal
+class MainFrame extends BaseFrame implements TaskObserver {
+    private String currentUser;
+    private TaskService taskService;
+    private JTable taskTable;
+    private DefaultTableModel tableModel;
+
+    public MainFrame(String username) {
+        this.currentUser = username;
+        this.taskService = new TaskService();
+        this.taskService.addObserver(this);
+
+        initializeFrame();
+        initializeComponents();
+        loadTableData();
+        centerOnScreen();
+        setVisible(true);
+    }
+
+    private void initializeFrame() {
+        setTitle("Sistema de Gerenciamento de Tarefas - Usuário: " + currentUser);
+        setSize(900, 600);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+
+    private void initializeComponents() {
+        setJMenuBar(createMenuBar());
+        add(createToolBar(), BorderLayout.NORTH);
+        add(createTablePanel(), BorderLayout.CENTER);
+    }
+
+    private JMenuBar createMenuBar() {
+        JMenuBar menuBar = new JMenuBar();
+
+        // Menu Arquivo
+        JMenu fileMenu = new JMenu("Arquivo");
+        JMenuItem saveItem = new JMenuItem("Salvar");
+        saveItem.addActionListener(e -> saveTasks());
+        JMenuItem exitItem = new JMenuItem("Sair");
+        exitItem.addActionListener(e -> System.exit(0));
+        fileMenu.add(saveItem);
+        fileMenu.addSeparator();
+        fileMenu.add(exitItem);
+
+        // Menu Tarefas
+        JMenu taskMenu = new JMenu("Tarefas");
+        JMenuItem newTaskItem = new JMenuItem("Nova Tarefa");
+        newTaskItem.addActionListener(e -> openTaskDialog(null));
+        JMenuItem editTaskItem = new JMenuItem("Editar Tarefa");
+        editTaskItem.addActionListener(e -> editSelectedTask());
+        JMenuItem deleteTaskItem = new JMenuItem("Excluir Tarefa");
+        deleteTaskItem.addActionListener(e -> deleteSelectedTask());
+        taskMenu.add(newTaskItem);
+        taskMenu.add(editTaskItem);
+        taskMenu.add(deleteTaskItem);
+
+        // Menu Ajuda
+        JMenu helpMenu = new JMenu("Ajuda");
+        JMenuItem aboutItem = new JMenuItem("Sobre");
+        aboutItem.addActionListener(e -> showAbout());
+        JMenuItem historyItem = new JMenuItem("Histórico");
+        historyItem.addActionListener(e -> showHistory());
+        helpMenu.add(aboutItem);
+        helpMenu.add(historyItem);
+
+        menuBar.add(fileMenu);
+        menuBar.add(taskMenu);
+        menuBar.add(helpMenu);
+
+        return menuBar;
+    }
+
+    private JToolBar createToolBar() {
+        JToolBar toolBar = new JToolBar();
+        toolBar.setFloatable(false);
+
+        JButton newBtn = new JButton("Nova");
+        newBtn.addActionListener(e -> openTaskDialog(null));
+        JButton editBtn = new JButton("Editar");
+        editBtn.addActionListener(e -> editSelectedTask());
+        JButton deleteBtn = new JButton("Excluir");
+        deleteBtn.addActionListener(e -> deleteSelectedTask());
+        JButton saveBtn = new JButton("Salvar");
+        saveBtn.addActionListener(e -> saveTasks());
+
+        toolBar.add(newBtn);
+        toolBar.add(editBtn);
+        toolBar.add(deleteBtn);
+        toolBar.addSeparator();
+        toolBar.add(saveBtn);
+
+        return toolBar;
+    }
+
+    private JScrollPane createTablePanel() {
+        String[] columns = {"ID", "Título", "Descrição", "Prioridade", "Status", "Data Limite"};
+        tableModel = new DefaultTableModel(columns, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+
+        taskTable = new JTable(tableModel);
+        taskTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        taskTable.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2) {
+                    editSelectedTask();
+                }
+            }
+        });
+
+        return new JScrollPane(taskTable);
+    }
+
+    @Override
+    public void onTasksChanged() {
+        loadTableData();
+    }
+
+    private void loadTableData() {
+        tableModel.setRowCount(0);
+        for (Task task : taskService.getAllTasks()) {
+            tableModel.addRow(new Object[]{
+                task.getId(),
+                task.getTitle(),
+                task.getDescription(),
+                task.getPriority().getDisplayName(),
+                task.getStatus().getDisplayName(),
+                task.getDueDate()
+            });
+        }
+    }
+
+    private void openTaskDialog(Task task) {
+        new TaskDialog(this, task, taskService);
+    }
+
+    private void editSelectedTask() {
+        int selectedRow = taskTable.getSelectedRow();
+        if (selectedRow == -1) {
+            showWarning("Selecione uma tarefa para editar!");
+            return;
+        }
+
+        int taskId = (int) tableModel.getValueAt(selectedRow, 0);
+        try {
+            Task task = new TaskRepository().findById(taskId);
+            if (task != null) {
+                openTaskDialog(task);
+            }
+        } catch (java.io.IOException e) {
+            showError("Erro ao buscar tarefa: " + e.getMessage());
+        }
+    }
+
+    private void deleteSelectedTask() {
+        int selectedRow = taskTable.getSelectedRow();
+        if (selectedRow == -1) {
+            showWarning("Selecione uma tarefa para excluir!");
+            return;
+        }
+
+        if (confirm("Deseja realmente excluir esta tarefa?")) {
+            int taskId = (int) tableModel.getValueAt(selectedRow, 0);
+            try {
+                taskService.deleteTask(taskId);
+                showSuccess("Tarefa excluída com sucesso!");
+            } catch (java.io.IOException e) {
+                showError("Erro ao excluir tarefa: " + e.getMessage());
+            }
+        }
+    }
+
+    private void saveTasks() {
+        try {
+            taskService.saveAll(taskService.getAllTasks());
+            showSuccess("Tarefas salvas com sucesso!");
+        } catch (java.io.IOException e) {
+            showError("Erro ao salvar tarefas: " + e.getMessage());
+        }
+    }
+
+    private void showAbout() {
+        String message = "Sistema de Gerenciamento de Tarefas\n\n" +
+                        "Versão 2.0 - Arquitetura POO\n\n" +
+                        "Desenvolvido com padrões de projeto:\n" +
+                        "- Repository Pattern\n" +
+                        "- Service Layer\n" +
+                        "- Observer Pattern\n" +
+                        "- Singleton Pattern\n\n" +
+                        "Tecnologia: Java Swing";
+        JOptionPane.showMessageDialog(this, message, "Sobre", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    private void showHistory() {
+        try {
+            String log = LogService.getInstance().readLog();
+            JTextArea textArea = new JTextArea(log);
+            textArea.setEditable(false);
+            JScrollPane scrollPane = new JScrollPane(textArea);
+            scrollPane.setPreferredSize(new Dimension(600, 400));
+
+            JOptionPane.showMessageDialog(this, scrollPane,
+                "Histórico de Alterações", JOptionPane.INFORMATION_MESSAGE);
+        } catch (java.io.IOException e) {
+            showError("Erro ao carregar histórico: " + e.getMessage());
+        }
+    }
+}
+
+// Diálogo de Tarefa
+class TaskDialog extends JDialog {
+    private Task task;
+    private TaskService taskService;
+    private MainFrame parent;
+
+    private JTextField titleField;
+    private JTextArea descriptionArea;
+    private JComboBox<String> priorityCombo;
+    private JComboBox<String> statusCombo;
+    private JTextField dueDateField;
+
+    public TaskDialog(MainFrame parent, Task task, TaskService taskService) {
+        super(parent, task == null ? "Nova Tarefa" : "Editar Tarefa", true);
+        this.parent = parent;
+        this.task = task;
+        this.taskService = taskService;
+
+        initializeDialog();
+        initializeComponents();
+        if (task != null) {
+            fillFormWithTaskData();
+        }
+
+        setLocationRelativeTo(parent);
+        setVisible(true);
+    }
+
+    private void initializeDialog() {
+        setSize(500, 400);
+    }
+
+    private void initializeComponents() {
+        JPanel panel = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(5, 5, 5, 5);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+
+        // Título
+        gbc.gridx = 0; gbc.gridy = 0;
+        panel.add(new JLabel("Título:"), gbc);
+        gbc.gridx = 1;
+        titleField = new JTextField(20);
+        panel.add(titleField, gbc);
+
+        // Descrição
+        gbc.gridx = 0; gbc.gridy = 1;
+        panel.add(new JLabel("Descrição:"), gbc);
+        gbc.gridx = 1;
+        descriptionArea = new JTextArea(5, 20);
+        panel.add(new JScrollPane(descriptionArea), gbc);
+
+        // Prioridade
+        gbc.gridx = 0; gbc.gridy = 2;
+        panel.add(new JLabel("Prioridade:"), gbc);
+        gbc.gridx = 1;
+        String[] priorities = {Priority.BAIXA.getDisplayName(),
+                              Priority.MEDIA.getDisplayName(),
+                              Priority.ALTA.getDisplayName()};
+        priorityCombo = new JComboBox<>(priorities);
+        panel.add(priorityCombo, gbc);
+
+        // Status
+        gbc.gridx = 0; gbc.gridy = 3;
+        panel.add(new JLabel("Status:"), gbc);
+        gbc.gridx = 1;
+        String[] statuses = {Status.PENDENTE.getDisplayName(),
+                            Status.EM_PROGRESSO.getDisplayName(),
+                            Status.CONCLUIDA.getDisplayName()};
+        statusCombo = new JComboBox<>(statuses);
+        panel.add(statusCombo, gbc);
+
+        // Data Limite
+        gbc.gridx = 0; gbc.gridy = 4;
+        panel.add(new JLabel("Data Limite:"), gbc);
+        gbc.gridx = 1;
+        dueDateField = new JTextField(20);
+        dueDateField.setToolTipText("Formato: dd/MM/yyyy");
+        panel.add(dueDateField, gbc);
+
+        // Botões
+        JPanel buttonPanel = new JPanel();
+        JButton saveButton = new JButton("Salvar");
+        saveButton.addActionListener(e -> saveTask());
+        JButton cancelButton = new JButton("Cancelar");
+        cancelButton.addActionListener(e -> dispose());
+        buttonPanel.add(saveButton);
+        buttonPanel.add(cancelButton);
+
+        gbc.gridx = 0; gbc.gridy = 5; gbc.gridwidth = 2;
+        panel.add(buttonPanel, gbc);
+
+        add(panel);
+    }
+
+    private void fillFormWithTaskData() {
+        titleField.setText(task.getTitle());
+        descriptionArea.setText(task.getDescription());
+        priorityCombo.setSelectedItem(task.getPriority().getDisplayName());
+        statusCombo.setSelectedItem(task.getStatus().getDisplayName());
+        dueDateField.setText(task.getDueDate());
+    }
+
+    private void saveTask() {
+        try {
+            String title = titleField.getText().trim();
+            String description = descriptionArea.getText().trim();
+            Priority priority = Priority.fromString((String) priorityCombo.getSelectedItem());
+            Status status = Status.fromString((String) statusCombo.getSelectedItem());
+            String dueDate = dueDateField.getText().trim();
+
+            if (task == null) {
+                // Criar nova tarefa
+                Task newTask = new Task(title, description, priority, status, dueDate);
+                taskService.createTask(newTask);
+                JOptionPane.showMessageDialog(this, "Tarefa criada com sucesso!",
+                    "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                // Atualizar tarefa existente
+                task.setTitle(title);
+                task.setDescription(description);
+                task.setPriority(priority);
+                task.setStatus(status);
+                task.setDueDate(dueDate);
+                taskService.updateTask(task);
+                JOptionPane.showMessageDialog(this, "Tarefa atualizada com sucesso!",
+                    "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+            }
+
+            dispose();
+        } catch (IllegalArgumentException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(),
+                "Erro de Validação", JOptionPane.ERROR_MESSAGE);
+        } catch (java.io.IOException e) {
+            JOptionPane.showMessageDialog(this, "Erro ao salvar tarefa: " + e.getMessage(),
+                "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+}
+
+// ==================== APLICAÇÃO PRINCIPAL ====================
+
+public class TaskManagerApp {
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            try {
+                UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            new LoginFrame();
+        });
+    }
+}

@@ -1,34 +1,25 @@
-#include<stdio.h>
+#include <stdio.h>
+#include <string.h>
 int main (){
-	float n1, n2, n3, media;
-	char conceito;
-	
-	printf("digite a primeira nota: ");
-	scanf("%f",&n1);
-	printf("digite a segunda nota: ");
-	scanf("%f",&n2);
-	printf("digite a terceira nota: ");
-	scanf("%f",&n3);
-	
-	media = (n1 + n2 + n3)/ 3;
-	
-	if(media > 9){
-		conceito = 'A';
-		printf("a media e: %.2f\no conceito e: %c",media ,conceito);
+	float altura, pesoIdeal;
+	char sexo[50];
+    printf("digite sua altura: ");
+    scanf("%f",&altura);
+	printf("qual o seu sexo: ");
+    scanf("%s",&sexo);
+    //masculino
+    if( strcmp(sexo, "masculino") == 0 || strcmp(sexo, "Masculino") == 0 || strcmp(sexo, "MASCULINO") == 0) {
+    	pesoIdeal = (72.7 * altura)- 58;
+    	printf("o peso ideal para um homem que tenha %.2f de altura e: %.2f", altura, pesoIdeal);
 	}
-	
-	else if(media >= 8 && media <= 9 ){
-		conceito = 'B';
-		printf("a media e: %.2f\no conceito e: %c",media ,conceito);
+	//feminino
+	else if(strcmp(sexo, "feminino") == 0 || strcmp(sexo, "Feminino") == 0 || strcmp(sexo, "FEMININO") == 0) {
+		pesoIdeal = (62.1 * altura)- 44.7;
+		printf("o peso ideal para uma mulher que tenha %.2f de altura e: %.2f", altura, pesoIdeal);
 	}
-	else if(media >= 6 && media <= 8){
-		conceito = 'C';
-		printf("a media e: %.2f\no conceito e: %c",media ,conceito);
+	//invalido
+	else{
+		printf("sexo invalido repita o processo e coloque um sexo valido (masculino ou feminino)");
 	}
-	else if(media < 6 ){
-		conceito = 'D';
-		printf("a media e: %.2f\no conceito e: %c\n**REPROVADO**",media ,conceito);
-	}
-	
 	return 0;
 }

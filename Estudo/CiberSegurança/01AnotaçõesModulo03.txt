@@ -1,0 +1,97 @@
+-------------Introdução a frameworks e controles de segurança-------------
+
+->ESTRUTURAS DE SEGURANÇA
+	|-> são diretrizes usadas para criar planos para ajudar a mitigar riscos e ameaças aos dados e a privacidade.
+
+ciclo de vida da segurança e um conjunto de politicas e padrões em constante evolução que define como uma organização gerencia riscos, segue as diretrizes estabelecidas e atende a conformidade regulatória ou as leis
+
+=============TIPOS DE ESTRUTURAS DE SEGURANÇA=============
+
+-> PROTEGER AS PII(Informações de identificação pessoal)
+-> PROTEGER AS INFORMAÇÕE FINANCEIRAS
+-> IDENTIFICAR PONTOS FRACOS DE SEGURANÇA
+-> GERENCIAR RISCOS ORGANIZACIONAIS
+-> ALINHAR A SEGURANÇA AS METAS DE NEGOCIOS
+
+AS ESTRUTURAS DE SEGURANÇA TEM 4 COMPONENTES PRINCIPAIS
+
+1° IDENTIFICAR E DOCUMENTAR AS METAS DE SEGURANÇA
+2° DEFINIR DIRETRIZES PARA AS METAS DE SEGURANÇA
+3° IMPLEMENTAÇÃO DE PROCESSOS DE SEGURNAÇAS SEGUROS
+4° MONITORAR E COMUNICAR OS RESUSTADOS
+
+--------------------------------------------------------------------------
+->CONTROLE DE SEGURANÇA
+	|-> São proteções projetadas para reduzir riscos de segurança específicos.
+
+
+==========================================================================
+==========================================================================
+-> a triad da CIA(Confiança[confidentiality], Integridade[integrity], Disponibilidade[availability])
+	|-> é um modelo fundamental que ajuda a informar como as organizações consideram os risco ao configurar sistemas e politicas de segurança
+
+-Confidencialidade - somente usuários autorizados podem acessar ativos ou dados especificos
+-integridade - os dados são corretos, autênticos e confiáveis
+-disponibilidade - os dados estão acessíveis para aqueles que estão autorizados a acessa-los
+
+->Recurso
+	|->um item percebido como tendo valor para uma organização
+
+
+FRAMEWORK DE CYBERSECURITY NIST(CSF)(RMF)           ->IMPORTANTE<-
+	|-> É um framework voluntario que consiste em padrões, diretrizes e melhores praticas para gerenciar riscos de cibersegurança
+
+==========================================================================
+==========================================================================
+-As estruturas de segurança são diretrizes usadas para criar planos que ajudem a reduzir os riscos e as ameaças à privacidade dos dados. Elas têm quatro componentes principais:
+
+-Identificação e documentação das metas de segurança
+-Definição de diretrizes para atingir as metas de segurança
+-Implementação de processos sólidos de segurança
+-Monitoramento e comunicação dos resultados
+
+-Conformidade é o processo de adesão a padrões internos e normas externas.
+
+--------------------------------------------------------------------------
+
+-National Institute of Standards and Technology (NIST) é uma agência sediada nos EUA que desenvolve várias estruturas de conformidade voluntária
+-Exemplos de estruturas incluem a Estrutura de Segurança Cibernética (CSF) do NIST e a Estrutura de Gerenciamento de Riscos (RMF) do NIST.
+
+-O Programa Federal de Gerenciamento de Riscos e Autorizações (FedRAMP®)
+O FedRAMP é um programa do governo federal dos EUA que padroniza a avaliação de segurança, a autorização, o monitoramento e o manuseio de serviços e ofertas de produtos na nuvem. Seu objetivo é fornecer consistência entre o setor governamental e os provedores de nuvem de terceiros.
+
+-Centro de Segurança da Internet (CIS®)
+O CIS é uma organização sem fins lucrativos com várias áreas de ênfase. Ele fornece um conjunto de controles que podem ser usados para proteger sistemas e redes contra ataques. Seu objetivo é ajudar as organizações a estabelecer um melhor plano de defesa. O CIS também fornece controles acionáveis que os profissionais de segurança podem seguir se ocorrer um incidente de segurança.
+
+-Regulamento Geral de Proteção de Dados (GDPR)
+O Regulamento Geral de Proteção de Dados (GDPR) é um regulamento geral de dados da União Europeia (UE) que protege o processamento de dados de residentes da UE e seu direito à privacidade dentro e fora do território da UE. Por exemplo, se uma organização não estiver sendo transparente sobre os dados que mantém sobre um cidadão da UE e por que está mantendo esses dados, isso é uma infração que pode resultar em uma multa para a organização. Além disso, se ocorrer uma violação e os dados de um cidadão da UE forem comprometidos, ele deverá ser informado. A organização afetada tem 72 horas para notificar o cidadão da UE sobre a violação.
+
+-Padrão de segurança de dados da indústria de cartões de pagamento (PCI DSS)
+O PCI DSS é um padrão de segurança internacional destinado a garantir que as organizações que armazenam, aceitam, processam e transmitem informações de cartão de crédito o façam em um ambiente seguro. O objetivo desse padrão de conformidade é reduzir a fraude com cartões de crédito.
+
+-Lei de Portabilidade e Responsabilidade de Seguros de Saúde (HIPAA)
+A HIPAA é uma lei federal dos EUA criada em 1996 para proteger as informações de saúde dos pacientes. Essa lei proíbe que as informações dos pacientes sejam compartilhadas sem o consentimento deles. Ela é regida por três regras:
+
+Privacidade
+Segurança
+Notificação de violação
+
+As organizações que armazenam dados de pacientes têm a obrigação legal de informar os pacientes sobre uma violação, pois se as Informações de Saúde Protegidas (PHI) dos pacientes forem expostas, isso pode levar a roubo de identidade e fraude de seguro. As PHI estão relacionadas à saúde ou condição física ou mental passada, presente ou futura de um indivíduo, seja um plano de atendimento ou pagamentos por atendimento. Além de entender a HIPAA como uma lei, os profissionais de segurança também precisam conhecer a Health Information Trust Alliance (HITRUST®), que é uma estrutura de segurança e um programa de garantia que ajuda as instituições a cumprir a conformidade com a HIPAA.
+
+-Controles de sistemas e organizações (SOC tipo 1, SOC tipo 2)
+O conselho de padrões de auditoria do American Institute of Certified Public Accountants® (AICPA) desenvolveu esse padrão. O SOC1 e o SOC2 são uma série de relatórios que se concentram nas políticas de acesso de usuários de uma organização em diferentes níveis organizacionais, como
+
+Associado
+Supervisor
+Gerente
+Executivo
+Vendedor 
+Outros
+
+São usados para avaliar a conformidade financeira e os níveis de risco de uma organização. Também abrangem a confidencialidade, a privacidade, a integridade, a disponibilidade, a segurança e a segurança geral dos dados. As falhas de controle nessas áreas podem levar a fraudes.
+--Dica profissional: há várias normas que são revisadas com frequência. Recomendamos que você se mantenha atualizado com as mudanças e explore mais estruturas, controles e conformidade. Duas sugestões para pesquisa: a Lei Gramm-Leach-Bliley e a Lei Sarbanes-Oxley.
+
+
+
+
+

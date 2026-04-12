@@ -1,0 +1,54 @@
+O Sistema de Gerenciamento da Expedição Galáctica
+
+Contexto:
+A agência espacial OrionData está desenvolvendo um sistema para gerenciar uma expedição
+interplanetária.
+Você foi contratado para desenvolver os módulos principais do sistema.
+Cada módulo possui requisitos que envolvem diferentes necessidades de armazenamento e acesso
+aos dados.
+Você deverá decidir qual estrutura de dados (lista, fila, pilha, etc.) é mais adequada a cada caso e
+implementar o código correspondente.
+
+ Registro de tripulantes
+
+Durante o embarque, os tripulantes são cadastrados conforme chegam.
+Porém, às vezes há necessidade de remover um tripulante específico (por exemplo, se ele não
+passou no exame médico).
+Requisito:
+- Implementar uma estrutura que permita inserir novos tripulantes no final e remover
+qualquer tripulante pelo nome ou ID.
+- Após cada remoção, a estrutura deve permanecer íntegra.
+
+ Controle de decolagem de naves auxiliares
+
+As naves auxiliares ficam em fila aguardando autorização para decolagem.
+A cada liberação da torre de controle, a primeira nave da fila deve ser enviada.
+Requisito:
+- Criar uma estrutura que mantenha a ordem de chegada.
+- Permitir inserir novas naves no final e remover apenas a primeira.
+
+ Sistema de emergências
+
+Durante o voo, alertas de emergência são empilhados (cada novo alerta fica no topo).
+Quando o engenheiro soluciona um problema, ele resolve o último alerta recebido.
+Requisito:
+- Criar uma estrutura para armazenar os alertas de forma que o último inserido seja o
+primeiro a ser tratado.
+
+ Histórico de missões
+
+A agência quer consultar facilmente o histórico das missões, mas também navegar tanto para
+frente quanto para trás na lista de registros.
+Por exemplo, o usuário pode acessar a missão anterior ou a próxima.
+Requisito:
+- Implementar uma estrutura que permita percorrer os elementos em ambos os sentidos
+(próximo e anterior).
+- Deve permitir inserção e remoção de missões.
+
+ Análise final
+
+No final, o sistema precisa exibir:
+1. Quantos tripulantes ainda estão cadastrados.
+2. Quantas naves aguardam decolagem.
+3. Quantos alertas ainda não foram resolvidos.
+4. As missões registradas (em ordem direta e reversa).

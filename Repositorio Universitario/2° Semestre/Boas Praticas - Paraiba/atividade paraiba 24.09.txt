@@ -1,0 +1,104 @@
+De acordo com os conceitos de Código Limpo: Formatação Vertical e Horizontal, refatore os
+seguintes trechos de códigos:
+Exercício 1.A
+public class Assert {
+    public static void assertTrue(String message, Boolean condition){
+        if (!condition){
+            fail(message);
+        }
+    }
+    public static void assertTrue(Boolean condition){
+        assertTrue(null, condition);
+    }
+    public static void assertFalse(String message, Boolean condition){
+        assertTrue(message, !condition);
+    }
+    public static void assertFalse(Boolean condition){
+        assertFalse(null, condition);
+    }
+}
+
+
+
+Exercício 1.B
+public class ReporterConfig{
+    private String m_className;
+    private List <Property> m_properties = new ArrayList<Property>();
+    public void addProperty(Property property){
+        m_properties.add(property);
+    }
+}
+
+Exercício 1.C
+public class ReporterConfig{
+    private String m_className;
+    private List <Property> m_properties = new ArrayList<Property>();
+    public void addProperty(Property property){
+        m_properties.add(property);
+    }
+}
+
+Exercício 2.A
+public class Quadratic{
+    public static double root1(double a,double b,double c){
+        double determinant=determinant(a,b,c);
+        return (-b+Math.sqrt(determinant))/(2*a);
+    }
+    public static double root2(int a,int b int c){
+        double determinant=determinant(a,b,c);
+        return (-b+Math.sqrt(determinant))/(2*a);
+    }
+    public static double determinant(double a,double b,double c){
+        return (b*b–4*a*c);
+    }
+}
+
+Exercicio 2.B
+package fitnesse.wikitext.widgets;
+pmport java.util.regex.*;
+
+public class BoldWidget extends ParentWidget{
+    Public static final String REGEXP = “’’’.+?’’’”;
+}
+public BoldWidget (ParentWidget parent, String text) throws Exception {
+    super (parent);
+}
+public String render() throws Exception{
+}
+
+Exercicio 2.C
+public class FitNesseServer implements SocketServer{private FitNesseContext}
+public class FitNesseServer(FitNesseContext context){this.context = context;}
+public void server(Socket s){
+    server(s, 1000);
+}
+public void server(Socket s, long requestTimeout){ 
+    try{FitNesseExpediter sender = new FitNesseExpediter(s, context);
+    sender.setRequestParsingTimeLimit(requestTimeout);
+    sender.start(); }Catch (Exception e){ e.printStackTrace();}
+}
+
+Exercicio 3
+Sua empresa foi contratada para desenvolver um grande projeto.
+Para o sucesso do projeto, será necessário contratar alguns colaboradores, principalmente na área de
+implementação.
+Defina algumas regras de equipes, tais como:
+- nomes significativos
+- métodos e funções
+- formatação
+Para cada item acima, deve ter no mínimo 3 regras ou restrições:
+
+-nomes significativos:
+1- utilizar estilo camelCase;
+2- sem codficaçao na nomenclaura de variaveis;
+3- não reutilizar o mesmo nome entre variaveis.
+
+-metodos e funcoes:
+1- Escrever no máximo 40 carácteres por variavel;
+2- Criar funções diretas e objetivas;
+3- evitar repetições.
+
+-formatação
+1- As variáveis devem-se declarar no início das classes.
+2- Na formatação Vertical escreva classes com no máximo 500 linhas;
+3- Na formatação horizontal não coloque espaços entre nomes das funções e os parênteses de abertura.

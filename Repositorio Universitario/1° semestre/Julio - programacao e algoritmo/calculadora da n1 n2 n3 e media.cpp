@@ -57,7 +57,7 @@ int main (){
 	scanf("%f",&n3);
 	media = (n1 + n2 + n3)/ 3;
 	printf("a nota da medida e: %.2f",media);
-	if (media >= 6.0){
+	if (media >= 60.0){
 		printf("\nvoce passou PARABENS");
 	}
 	else {
