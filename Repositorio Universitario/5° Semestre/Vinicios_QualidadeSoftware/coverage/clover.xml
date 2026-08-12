@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1781487140118" clover="3.2.0">
+  <project timestamp="1781487140118" name="All files">
+    <metrics statements="65" coveredstatements="65" conditionals="16" coveredconditionals="16" methods="26" coveredmethods="26" elements="107" coveredelements="107" complexity="0" loc="65" ncloc="65" packages="1" files="3" classes="3"/>
+    <file name="utils-numbers.js" path="C:\Users\plane\OneDrive\Documentos\Repositorio\Repositorio Universitario\5° Semestre\Vinicios_QualidadeSoftware\utils-numbers.js">
+      <metrics statements="31" coveredstatements="31" conditionals="16" coveredconditionals="16" methods="12" coveredmethods="12"/>
+      <line num="1" count="1" type="stmt"/>
+      <line num="2" count="2" type="stmt"/>
+      <line num="5" count="1" type="stmt"/>
+      <line num="6" count="2" type="stmt"/>
+      <line num="9" count="1" type="stmt"/>
+      <line num="10" count="6" type="cond" truecount="4" falsecount="0"/>
+      <line num="11" count="2" type="stmt"/>
+      <line num="13" count="4" type="stmt"/>
+      <line num="16" count="1" type="stmt"/>
+      <line num="17" count="28" type="cond" truecount="2" falsecount="0"/>
+      <line num="18" count="27" type="cond" truecount="2" falsecount="0"/>
+      <line num="19" count="21" type="cond" truecount="2" falsecount="0"/>
+      <line num="20" count="12" type="stmt"/>
+      <line num="23" count="1" type="stmt"/>
+      <line num="24" count="3" type="stmt"/>
+      <line num="25" count="3" type="stmt"/>
+      <line num="26" count="1" type="stmt"/>
+      <line num="29" count="1" type="stmt"/>
+      <line num="30" count="2" type="cond" truecount="2" falsecount="0"/>
+      <line num="31" count="3" type="stmt"/>
+      <line num="32" count="1" type="stmt"/>
+      <line num="35" count="1" type="stmt"/>
+      <line num="36" count="5" type="stmt"/>
+      <line num="39" count="1" type="stmt"/>
+      <line num="40" count="9" type="cond" truecount="2" falsecount="0"/>
+      <line num="41" count="3" type="stmt"/>
+      <line num="43" count="6" type="cond" truecount="2" falsecount="0"/>
+      <line num="44" count="3" type="stmt"/>
+      <line num="45" count="3" type="stmt"/>
+      <line num="49" count="3" type="stmt"/>
+      <line num="52" count="1" type="stmt"/>
+    </file>
+    <file name="utils-strings.js" path="C:\Users\plane\OneDrive\Documentos\Repositorio\Repositorio Universitario\5° Semestre\Vinicios_QualidadeSoftware\utils-strings.js">
+      <metrics statements="19" coveredstatements="19" conditionals="0" coveredconditionals="0" methods="8" coveredmethods="8"/>
+      <line num="1" count="1" type="stmt"/>
+      <line num="2" count="2" type="stmt"/>
+      <line num="3" count="2" type="stmt"/>
+      <line num="6" count="1" type="stmt"/>
+      <line num="7" count="2" type="stmt"/>
+      <line num="10" count="1" type="stmt"/>
+      <line num="11" count="1" type="stmt"/>
+      <line num="14" count="1" type="stmt"/>
+      <line num="15" count="1" type="stmt"/>
+      <line num="18" count="1" type="stmt"/>
+      <line num="19" count="3" type="stmt"/>
+      <line num="20" count="3" type="stmt"/>
+      <line num="23" count="1" type="stmt"/>
+      <line num="24" count="2" type="stmt"/>
+      <line num="27" count="1" type="stmt"/>
+      <line num="28" count="1" type="stmt"/>
+      <line num="31" count="1" type="stmt"/>
+      <line num="32" count="2" type="stmt"/>
+      <line num="35" count="1" type="stmt"/>
+    </file>
+    <file name="utils-struct.js" path="C:\Users\plane\OneDrive\Documentos\Repositorio\Repositorio Universitario\5° Semestre\Vinicios_QualidadeSoftware\utils-struct.js">
+      <metrics statements="15" coveredstatements="15" conditionals="0" coveredconditionals="0" methods="6" coveredmethods="6"/>
+      <line num="1" count="1" type="stmt"/>
+      <line num="2" count="1" type="stmt"/>
+      <line num="3" count="1" type="stmt"/>
+      <line num="6" count="1" type="stmt"/>
+      <line num="7" count="2" type="stmt"/>
+      <line num="10" count="1" type="stmt"/>
+      <line num="11" count="2" type="stmt"/>
+      <line num="14" count="1" type="stmt"/>
+      <line num="15" count="8" type="stmt"/>
+      <line num="18" count="1" type="stmt"/>
+      <line num="19" count="1" type="stmt"/>
+      <line num="20" count="1" type="stmt"/>
+      <line num="21" count="2" type="stmt"/>
+      <line num="23" count="1" type="stmt"/>
+      <line num="26" count="1" type="stmt"/>
+    </file>
+  </project>
+</coverage>

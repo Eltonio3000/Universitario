@@ -153,7 +153,7 @@ function App() {
               {/* Botão para deletar o livro, que chama a função deletarLivro passando o ID do livro */}
               <button 
                 onClick={() => deletarLivro(livro.id)}
-                style={{ width: 'auto', padding: '5px 10px', background: '#e74c3c', color: 'white', marginTop: '5px' }}
+                style={{ width: 'auto', padding: '5px 10px', background: '#e74c3c', color: 'white',  }}
                   >
                   Excluir
               </button>
