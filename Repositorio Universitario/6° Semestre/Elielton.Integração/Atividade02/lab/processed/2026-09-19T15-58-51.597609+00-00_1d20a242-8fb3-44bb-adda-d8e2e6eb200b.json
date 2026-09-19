@@ -1,0 +1,1 @@
+{"event_id": "1d20a242-8fb3-44bb-adda-d8e2e6eb200b", "type": "ResultadoMatricula", "ts": "2026-09-19T15:58:51.597609+00:00", "ts_solicitacao": "2026-09-19T15:58:50.797430+00:00", "request_id": "R2008", "student_id": "A103", "course_id": "MAT150", "term": "2026.1", "credits": 2, "approved": false, "status": "SemVagas", "seats_after": 0}

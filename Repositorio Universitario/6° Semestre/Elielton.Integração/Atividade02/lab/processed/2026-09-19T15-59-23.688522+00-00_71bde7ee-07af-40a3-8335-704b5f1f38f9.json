@@ -1,0 +1,1 @@
+{"event_id": "71bde7ee-07af-40a3-8335-704b5f1f38f9", "type": "ResultadoMatricula", "ts": "2026-09-19T15:59:23.688522+00:00", "ts_solicitacao": "2026-09-19T15:59:22.842112+00:00", "request_id": "R2016", "student_id": "A100", "course_id": "BD101", "term": "2026.1", "credits": 2, "approved": false, "status": "SemVagas", "seats_after": 0}

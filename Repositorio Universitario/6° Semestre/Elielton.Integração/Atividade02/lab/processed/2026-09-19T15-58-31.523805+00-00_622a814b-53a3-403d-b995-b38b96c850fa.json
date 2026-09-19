@@ -1,0 +1,1 @@
+{"event_id": "622a814b-53a3-403d-b995-b38b96c850fa", "type": "ResultadoMatricula", "ts": "2026-09-19T15:58:31.523805+00:00", "ts_solicitacao": "2026-09-19T15:58:30.775430+00:00", "request_id": "R2003", "student_id": "A100", "course_id": "ENG200", "term": "2026.1", "credits": 6, "approved": true, "status": "Matriculado", "seats_after": 1}

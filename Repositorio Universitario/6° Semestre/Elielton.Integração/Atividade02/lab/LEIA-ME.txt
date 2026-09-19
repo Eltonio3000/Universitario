@@ -1,0 +1,55 @@
+LABORATORIO — Simulacao de Integracao: Matriculas
+Integracao de Aplicacoes
+
+==================================================
+COMO RODAR (3 terminais, todos NESTA pasta)
+==================================================
+
+Terminal 1 — App B (Academico), modo TEMPO REAL:
+    python academic_service.py 1
+
+Terminal 2 — App C (Financeiro):
+    python finance_service.py
+
+Terminal 3 — App A (Matriculas):
+    python enrollment_service.py
+
+(Se "python" nao funcionar, use "python3".)
+
+Para o modo LOTE: pare o App B com Ctrl+C e rode
+    python academic_service.py 120
+depois rode o App A de novo.
+
+ANTES de trocar de modo, pare B e C (Ctrl+C) e rode:
+    python reset.py
+
+Ao final de cada experimento, para os numeros da tarefa T1:
+    python relatorio.py
+
+==================================================
+ARQUIVOS
+==================================================
+enrollment_service.py  App A — gera solicitacoes em inbox/
+academic_service.py    App B — valida, decide vagas, escreve em outbox/
+finance_service.py     App C — registra em finance_log.csv
+reset.py               limpa tudo para um novo experimento
+relatorio.py           conta arquivos e calcula a latencia media
+versao_do_pdf/         codigo exatamente como esta no PDF do tutorial
+
+inbox/ outbox/ processed/ deadletter/   pastas da integracao
+
+==================================================
+O QUE MUDOU EM RELACAO AO PDF
+==================================================
+1. Escrita atomica (.tmp + os.replace) no App A e no App B.
+   Sem isso o leitor pode abrir um arquivo pela metade e mandar
+   um evento valido para deadletter/ sem motivo.
+2. App C nao morre mais quando encontra um arquivo problematico.
+3. Saida do terminal forcada em UTF-8 (acentos no Windows).
+4. POLL_SECONDS pode ser passado por argumento, alem da variavel
+   de ambiente — evita o problema de $env: no PowerShell x set no CMD.
+5. move() nao quebra se ja existir arquivo com o mesmo nome.
+6. O evento de resultado carrega ts_solicitacao, e o finance_log.csv
+   ganhou as colunas ts_solicitacao e latencia_seg — assim a
+   comparacao tempo real x lote vira numero, nao so impressao.
+7. reset.py e relatorio.py sao novos.

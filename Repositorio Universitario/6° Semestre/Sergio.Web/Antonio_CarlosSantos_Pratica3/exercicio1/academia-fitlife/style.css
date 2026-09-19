@@ -1,0 +1,203 @@
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #F5F8F7;
+    color: #1A1D20;
+    line-height: 1.6;
+}
+
+.container {
+    width: 85%;
+    max-width: 1100px;
+    margin: 30px auto;
+    background-color: #FFFFFF;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+section {
+    padding: 25px 0;
+    border-bottom: 1px solid #E0E0E0;
+}
+
+section:last-of-type {
+    border-bottom: none;
+}
+
+h3 {
+    color: #0B2238;
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+}
+
+
+header {
+    background-color: #0B2238;
+    color: #FFFFFF;
+    text-align: center;
+    padding: 30px 20px;
+}
+
+header img {
+    max-width: 120px;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+header h1 {
+    font-size: 3rem;
+    margin-bottom: 5px;
+}
+
+header h2 {
+    font-size: 1.2rem;
+    font-weight: 300;
+    color: #20E2B8;
+}
+
+nav {
+    background-color: #1A1D20;
+    padding: 10px 0;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+nav a {
+    color: #FFFFFF;
+    text-decoration: none;
+    padding: 10px 20px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    border-radius: 4px;
+}
+
+nav a:hover {
+    background-color: #00A396;
+}
+
+
+#sobre-nos {
+    background-color: #EAF7F5;
+    padding: 25px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+#sobre-nos img {
+    max-width: 200px;
+    border-radius: 8px;
+}
+
+.destaque {
+    color: #00A396;
+    font-weight: bold;
+    display: block;
+    margin-top: 10px;
+}
+
+#modalidades ul {
+    list-style-type: square;
+    padding-left: 20px;
+}
+
+#modalidades li {
+    padding: 5px 0;
+}
+
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    text-align: center;
+}
+
+table th, table td {
+    border: 1px solid #CCCCCC;
+    padding: 12px;
+}
+
+table th {
+    background-color: #00A396;
+    color: #FFFFFF;
+}
+
+table tbody tr:nth-child(even) {
+    background-color: #F8F9FA;
+}
+
+
+#matricula form {
+    margin-top: 15px;
+}
+
+#matricula label {
+    font-weight: bold;
+    color: #0B2238;
+}
+
+
+#matricula input,
+#matricula select,
+#matricula textarea {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border: 1px solid #CCCCCC;
+    border-radius: 4px;
+    font-family: Arial, sans-serif;
+}
+
+
+.btn-matricula {
+    background-color: #20E2B8;
+    color: #0B2238;
+    font-weight: bold;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.btn-matricula:hover {
+    background-color: #00A396;
+    color: #FFFFFF;
+}
+
+
+footer {
+    background-color: #1A1D20;
+    color: #FFFFFF;
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px;
+}
+
+footer a {
+    color: #20E2B8;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}

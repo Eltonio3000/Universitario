@@ -1,0 +1,1 @@
+{"event_id": "f33d0eb8-4096-4eb6-ac0f-3abda035fa8d", "type": "ResultadoMatricula", "ts": "2026-09-19T15:58:43.555824+00:00", "ts_solicitacao": "2026-09-19T15:58:42.790941+00:00", "request_id": "R2006", "student_id": "A101", "course_id": "BD101", "term": "2026.1", "credits": 4, "approved": true, "status": "Matriculado", "seats_after": 3}
