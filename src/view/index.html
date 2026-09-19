@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Leitor de DANFE com Gemini</title>
+</head>
+<body>
+<h1>Upload de DANFE (PDF)</h1>
+
+<form id="uploadForm">
+    <input type="file" id="pdfInput" accept="application/pdf" required />
+    <button type="submit">Extrair Dados</button>
+</form>
+
+<h3>Resultado (JSON):</h3>
+<pre id="resultado">Aguardando arquivo...</pre>
+
+<script>
+    document.getElementById('uploadForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const fileInput = document.getElementById('pdfInput');
+      const resultado = document.getElementById('resultado');
+
+      if (!fileInput.files[0]) return;
+
+      const formData = new FormData();
+      formData.append('pdf', fileInput.files[0]);
+
+      resultado.textContent = 'Processando nota com o Gemini... aguarde...';
+
+      try {
+        const response = await fetch('/api/processar-danfe', {
+          method: 'POST',
+          body: formData
+        });
+
+        const data = await response.json();
+        resultado.textContent = JSON.stringify(data, null, 2);
+      } catch (err) {
+        resultado.textContent = 'Erro ao enviar o arquivo.';
+      }
+    });
+</script>
+</body>
+</html>

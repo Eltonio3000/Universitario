@@ -1,0 +1,23 @@
+{
+  "name": "paraiba.pes",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Eltonio3000/PraticasEngenhariaSoftware.Paraiba.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Eltonio3000/PraticasEngenhariaSoftware.Paraiba/issues"
+  },
+  "homepage": "https://github.com/Eltonio3000/PraticasEngenhariaSoftware.Paraiba#readme",
+  "description": "",
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
