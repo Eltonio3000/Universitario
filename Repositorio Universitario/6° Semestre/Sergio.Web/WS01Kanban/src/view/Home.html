@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KANBAN LIVE</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
+        body { background-color: #f3f4f6; height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
+        header { background-color: #0d3b66; color: #ffffff; padding: 12px 24px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); }
+        .logo-title { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1.1rem; letter-spacing: 0.5px; }
+        .status-bar { display: flex; align-items: center; gap: 16px; }
+        .ws-status { font-size: 0.75rem; font-weight: 600; display: flex; align-items: center; gap: 6px; background: rgba(255, 255, 255, 0.1); padding: 4px 10px; border-radius: 12px; }
+        .status-dot { width: 8px; height: 8px; background-color: #ef4444; border-radius: 50%; }
+        .status-dot.online { background-color: #10b981; }
+        .avatars { display: flex; gap: -4px; }
+        .avatar { width: 28px; height: 28px; border-radius: 50%; background-color: #4b5563; border: 2px solid #0d3b66; color: #fff; font-size: 0.7rem; font-weight: 600; display: flex; align-items: center; justify-content: center; margin-left: -6px; }
+        .kanban-board { flex: 1; display: flex; gap: 16px; padding: 20px 24px; overflow-x: auto; }
+        .column { background-color: #e5e7eb; border-radius: 8px; padding: 12px; display: flex; flex-direction: column; gap: 12px; height: 100%; min-width: 260px; flex: 1; }
+        .column-header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 8px; border-bottom: 2px solid #0d3b66; font-weight: 700; font-size: 0.85rem; color: #0d3b66; }
+        .cards-container { display: flex; flex-direction: column; gap: 10px; flex: 1; overflow-y: auto; }
+        .card { background-color: #ffffff; border-radius: 6px; padding: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); border: 1px solid #e5e7eb; display: flex; flex-direction: column; gap: 8px; position: relative; }
+        .card-title { font-size: 0.9rem; font-weight: 600; color: #1f2937; }
+        .card-desc { font-size: 0.78rem; color: #4b5563; line-height: 1.3; }
+        .card-footer { display: flex; justify-content: space-between; align-items: center; font-size: 0.75rem; color: #6b7280; }
+        .tag { font-size: 0.7rem; font-weight: 600; padding: 2px 6px; border-radius: 4px; }
+        .ws-broadcast { background-color: #fef3c7; color: #b45309; font-size: 0.8rem; padding: 8px 24px; border-top: 1px solid #fde68a; display: flex; align-items: center; gap: 8px; }
+        /* Botão Flutuante (FAB) */
+        .fab { position: fixed; bottom: 32px; right: 32px; width: 56px; height: 56px; border-radius: 50%; background-color: #0d3b66; color: #ffffff; font-size: 28px; border: none; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.25); display: flex; align-items: center; justify-content: center; transition: transform 0.2s, background-color 0.2s; z-index: 99; }
+        .fab:hover { transform: scale(1.08); background-color: #1d4ed8; }
+        /* Modal */
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); backdrop-filter: blur(2px); justify-content: center; align-items: center; z-index: 1000; }
+        .modal-overlay.active { display: flex; }
+        .modal-card { background: #ffffff; border-radius: 10px; width: 100%; max-width: 420px; padding: 24px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); animation: fadeIn 0.2s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+        .modal-header h3 { color: #0d3b66; font-size: 1.2rem; }
+        .btn-close { background: none; border: none; font-size: 24px; cursor: pointer; color: #6b7280; }
+        .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+        .form-group label { font-size: 0.82rem; font-weight: 600; color: #374151; }
+        .form-group input, .form-group textarea, .form-group select { padding: 10px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 0.9rem; outline: none; }
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: #0d3b66; box-shadow: 0 0 0 2px rgba(13, 59, 102, 0.15); }
+        .modal-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px; }
+        .btn-cancel { background: #e5e7eb; border: none; padding: 10px 16px; border-radius: 6px; cursor: pointer; color: #374151; font-weight: 600; }
+        .btn-submit { background: #0d3b66; border: none; padding: 10px 18px; border-radius: 6px; cursor: pointer; color: #ffffff; font-weight: 600; }
+        .btn-submit:hover { background-color: #1d4ed8; }
+        .card-action-badge { font-size: 0.68rem; font-weight: 700; color: #1d4ed8; background-color: #eff6ff; border: 1px solid #bfdbfe; padding: 2px 6px; border-radius: 4px; display: none; /* Fica oculto até receber uma ação */ animation: pulse 1s infinite alternate; }
+        @keyframes pulse { from { opacity: 0.6; } to { opacity: 1; } }
+        .card-info-btn { position: absolute; top: 8px; right: 8px; background: transparent; border: none; color: #9ca3af; cursor: pointer; font-size: 14px; padding: 2px 6px; border-radius: 4px; transition: background-color 0.2s, color 0.2s; }
+        .card-info-btn:hover { background-color: #f3f4f6; color: #1f2937; }
+        /* Estilo do botão de Excluir no Modal */
+        .btn-delete { background-color: #ef4444; border: none; padding: 10px 16px; border-radius: 6px; cursor: pointer; color: #ffffff; font-weight: 600; margin-right: auto; /* Empurra o botão para a esquerda do rodapé do modal */ }
+        .btn-delete:hover { background-color: #dc2626; }
+        .card.locked { opacity: 0.6; pointer-events: none; /* Impede novos cliques ou arrastes por outros usuários */ border: 2px dashed #f59e0b !important; background-color: #fffbeb; }
+        .card.locked .card-info-btn { display: none; }
+        .main-wrapper { display: flex; flex: 1; overflow: hidden; }
+        /* Feed Lateral de Atividades */
+        .activity-feed { width: 300px; background-color: #ffffff; border-left: 1px solid #e5e7eb; display: flex; flex-direction: column; box-shadow: -2px 0 6px rgba(0,0,0,0.03); }
+        .feed-header { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; font-weight: bold; color: #f8fafc; border-bottom: 1px solid #334155; background-color: #0f172a; }
+        .feed-list { flex: 1; overflow-y: auto; padding: 12px 16px; display: flex; flex-direction: column; gap: 10px; }
+        .feed-item { font-size: 0.78rem; color: #374151; padding: 8px 10px; background-color: #f9fafb; border-left: 3px solid #0d3b66; border-radius: 4px; }
+        .feed-time { font-size: 0.7rem; color: #9ca3af; font-weight: 600; margin-bottom: 2px; }
+        .btn-logs-feed { display: inline-flex; align-items: center; justify-content: center; text-decoration: none; font-size: 16px; width: 28px; height: 28px; border-radius: 6px; background-color: #1e293b; border: 1px solid #334155; transition: background-color 0.2s, transform 0.2s; cursor: pointer; }
+        .btn-logs-feed:hover { background-color: #334155; transform: rotate(45deg); }
+        .logs-modal-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: rgba(15, 23, 42, 0.85); backdrop-filter: blur(4px); z-index: 9999; display: none; /* Inicia oculto */ align-items: center; justify-content: center; padding: 20px; }
+        .logs-modal-container { background-color: #0f172a; border: 1px solid #334155; border-radius: 12px; width: 95vw; max-width: 1200px; height: 85vh; display: flex; flex-direction: column; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5); overflow: hidden; }
+        /* CABEÇALHO DO MODAL */
+        .logs-modal-header { background-color: #03254c; color: #ffffff; padding: 14px 24px; font-size: 1.1rem; font-weight: 700; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #1e293b; }
+        .btn-close-modal { background: transparent; border: none; color: #94a3b8; font-size: 1.8rem; cursor: pointer; line-height: 1; transition: color 0.2s; }
+        .btn-close-modal:hover { color: #ef4444; }
+        /* CONTAINER DO DASHBOARD */
+        .dashboard-container { display: flex; flex: 1; padding: 16px; gap: 16px; overflow: hidden; }
+        .left-panel { width: 320px; display: flex; flex-direction: column; gap: 16px; }
+        .card-panel { background: #ffffff; color: #1e293b; border-radius: 8px; padding: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); display: flex; flex-direction: column; }
+        .panel-title { font-size: 0.85rem; font-weight: 700; color: #0d3b66; margin-bottom: 12px; }
+        .users-list { display: flex; flex-direction: column; gap: 8px; overflow-y: auto; flex: 1; }
+        .user-info { display: flex; align-items: center; gap: 8px; font-weight: 600; font-size: 0.8rem; }
+        .user-tag { background: #e2e8f0; color: #64748b; font-size: 0.68rem; padding: 2px 6px; border-radius: 4px; }
+        .status-badge { font-size: 0.7rem; font-weight: 700; padding: 2px 6px; border-radius: 12px; }
+        .status-online { background-color: #dcfce7; color: #15803d; }
+        .status-offline { background-color: #fcdcdc; color: #801515; }
+        .status-block { background-color: #d3cdcd; color: #000000; }
+        /* TERMINAL DE CONSOLE */
+        .console-panel { flex: 1; background-color: #050505; border-radius: 8px; padding: 16px; display: flex; flex-direction: column; border: 1px solid #1e293b; font-family: 'Courier New', Courier, monospace; }
+        .console-header { color: #00ff66; font-size: 0.9rem; font-weight: bold; margin-bottom: 12px; }
+        .console-logs { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 6px; font-size: 0.82rem; line-height: 1.4; }
+        .log-line { display: flex; gap: 8px; word-break: break-all; }
+        .log-time { color: #64748b; }
+        .log-type-in { color: #00ff66; font-weight: bold; }
+        .log-text { color: #f8fafc; }
+        .metrics-card { background-color: #bae6fd; color: #0369a1; border-radius: 8px; padding: 12px 16px; font-size: 0.8rem; font-weight: 600; }
+        /* Posição relativa para acomodar o botão absoluto */
+        .user-item { position: relative; display: flex; flex-direction: column; gap: 4px; padding: 10px 32px 10px 10px; /* Padding extra na direita para o botão não sobrepor */ background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; align-items: center; justify-content: space-between; }
+        /* BOTÃO DE BLOQUEIO NO CANTO SUPERIOR DIREITO */
+        .btn-block-user { position: absolute; top: 6px; right: 6px; background: transparent; border: none; color: #94a3b8; font-size: 0.85rem; cursor: pointer; padding: 2px 4px; border-radius: 4px; transition: all 0.2s ease; }
+        .btn-block-user:hover { color: #ef4444; background-color: #fee2e2; }
+        .btn-toggle-feed { display: none; background: rgba(255, 255, 255, 0.15); border: none; color: #fff; padding: 6px 10px; border-radius: 6px; cursor: pointer; font-size: 1.1rem; align-items: center; justify-content: center; }
+        /* REGRA RESPONSIVA PARA TELAS PEQUENAS (Móvel / < 768px) */
+        @media (max-width: 768px) {
+            /* Exibe o botão de alternar no header */
+            .btn-toggle-feed { display: flex; }
+            /* O Feed vira uma gaveta lateral flutuante (Drawer) */
+            .activity-feed { position: fixed; top: 0; right: -100%; /* Inicia escondido fora da tela */ width: 85%; max-width: 320px; height: 100vh; z-index: 1001; transition: right 0.3s ease-in-out; box-shadow: -4px 0 15px rgba(0, 0, 0, 0.3); }
+            /* Classe ativada pelo JS para abrir o feed */
+            .activity-feed.open { right: 0; }
+            /* Overlay escuro de fundo ao abrir a gaveta */
+            .feed-drawer-overlay { display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0, 0, 0, 0.5); backdrop-filter: blur(2px); z-index: 1000; }
+            .feed-drawer-overlay.active { display: block; }
+            .logs-modal-container { height: 90vh; max-height: 90vh; }
+            /* Muda o layout de lado-a-lado para empilhado (coluna) */
+            .dashboard-container { flex-direction: column; overflow-y: auto; padding: 12px; gap: 12px; }
+            /* Painel esquerdo ocupa 100% da largura */
+            .left-panel { width: 100%; min-height: auto; }
+            .card-panel { max-height: 220px; /* Limita a altura da lista de usuários para não ocupar a tela toda */ }
+            /* Terminal de console empilha abaixo das métricas */
+            .console-panel { width: 100%; min-height: 250px; /* Garante espaço visível pro terminal em baixo */ flex: none; }
+            .log-line { font-size: 0.75rem; /* Ajusta a fonte do log para telas pequenas */ }
+            .card { /* Impede que o navegador intercepte o toque como scroll apenas ao tocar no card */ touch-action: none; -webkit-user-select: none; user-select: none; }
+        }
+    </style>
+</head>
+<script src="https://cdn.jsdelivr.net/npm/drag-drop-touch@1.3.0/DragDropTouch.js"></script>
+<body>
+
+<header>
+    <div class="logo-title">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h4v16H4V4zm6 0h4v10h-4V4zm6 0h4v6h-4V4z"/></svg>
+        <button id="btnToggleFeed" class="btn-toggle-feed" title="Histórico de Atividades">📋</button>
+        <span id="roomTitle">KANBAN LIVE</span>
+    </div>
+    <div class="status-bar">
+        <div class="ws-status">
+            <span id="statusDot" class="status-dot"></span> <span id="statusText">WS: DESCONECTADO</span>
+        </div>
+        <div class="avatars" id="avatarsContainer"></div>
+    </div>
+</header>
+
+<div id="feedOverlay" class="feed-drawer-overlay"></div>
+
+<div class="main-wrapper">
+    <main class="kanban-board" id="kanbanBoard">
+        <!-- As colunas serão injetadas dinamicamente via JS -->
+    </main>
+
+    <!-- Feed Lateral de Histórico -->
+    <aside class="activity-feed" id="activityFeed">
+        <div class="feed-header">
+            <span>📋 Histórico de Atividades</span>
+            <a href="#" id="btnLogsFeed" class="btn-logs-feed" title="Gerenciar Logs">⚙️</a>
+            <button id="btnCloseFeedMobile" class="btn-close-modal" style="font-size: 1.4rem; display: none;" title="Fechar">&times;</button>
+        </div>
+        <div class="feed-list" id="activityFeedList"></div>
+    </aside>
+</div>
+
+<footer class="ws-broadcast">
+    <span>📡</span>
+    <div><strong>[WS Broadcast]</strong> <span id="broadcastMsg">Aguardando eventos da sala...</span></div>
+</footer>
+
+<button class="fab" id="btnOpenModal" title="Criar Nova Tarefa">+</button>
+
+<div class="modal-overlay" id="taskModal">
+    <div class="modal-card">
+        <div class="modal-header">
+            <h3>Nova Tarefa</h3>
+            <button class="btn-close" id="btnCloseModal">&times;</button>
+        </div>
+
+        <form id="formCreateTask">
+            <div class="form-group">
+                <label for="taskTitle">Título *</label>
+                <input type="text" id="taskTitle" placeholder="Ex: Configurar WebSockets" required>
+            </div>
+
+            <div class="form-group">
+                <label for="taskDesc">Descrição</label>
+                <textarea id="taskDesc" rows="3" placeholder="Detalhes da tarefa..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="taskPriority">Prioridade</label>
+                <select id="taskPriority">
+                    <option value="Baixa">Baixa</option>
+                    <option value="Média" selected>Média</option>
+                    <option value="Alta">Alta</option>
+                    <option value="Crítica">Crítica</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="taskResp">Responsável</label>
+                <select id="taskResp">
+                    <option value="">Selecione um responsável</option>
+                </select>
+            </div>
+
+            <div class="modal-actions">
+                <button type="button" class="btn-cancel" id="btnCancelModal">Cancelar</button>
+                <button type="submit" class="btn-submit">Criar Tarefa</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Modal para Detalhar, Editar e Excluir Tarefa -->
+<div class="modal-overlay" id="editTaskModal">
+    <div class="modal-card">
+        <div class="modal-header">
+            <h3>Detalhes da Tarefa</h3>
+            <button class="btn-close" id="btnCloseEditModal">&times;</button>
+        </div>
+
+        <form id="formEditTask">
+            <input type="hidden" id="editTaskId">
+
+            <div class="form-group">
+                <label for="editTaskTitle">Título *</label>
+                <input type="text" id="editTaskTitle" required>
+            </div>
+
+            <div class="form-group">
+                <label for="editTaskDesc">Descrição</label>
+                <textarea id="editTaskDesc" rows="3"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="editTaskPriority">Prioridade</label>
+                <select id="editTaskPriority">
+                    <option value="Baixa">Baixa</option>
+                    <option value="Média">Média</option>
+                    <option value="Alta">Alta</option>
+                    <option value="Crítica">Crítica</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="editTaskResp">Responsável</label>
+                <select id="editTaskResp">
+                    <option value="">Selecione um responsável</option>
+                </select>
+            </div>
+
+            <div class="modal-actions">
+                <button type="button" class="btn-delete" id="btnDeleteTask">Excluir Tarefa</button>
+                <button type="button" class="btn-cancel" id="btnCancelEditModal">Cancelar</button>
+                <button type="submit" class="btn-submit">Salvar Alterações</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- MODAL DE LOGS E ADMINISTRAÇÃO -->
+<div id="logsModal" class="logs-modal-overlay">
+    <div class="logs-modal-container">
+        <!-- Cabeçalho do Modal -->
+        <div class="logs-modal-header">
+            <div class="logs-modal-title">❖ PAINEL DE ADMINISTRAÇÃO E CONEXÕES WEBSOCKET</div>
+            <button id="btnCloseLogsModal" class="btn-close-modal" title="Fechar">&times;</button>
+        </div>
+
+        <!-- Conteúdo do Painel -->
+        <div class="dashboard-container">
+            <!-- Lado Esquerdo: Lista de Usuários e Métricas -->
+            <div class="left-panel">
+                <div class="card-panel" style="flex: 1;">
+                    <div class="panel-title">❖ USUÁRIOS ATIVOS NA SESSÃO</div>
+                    <div class="users-list" id="usersList">
+                        <!-- Conteúdo estático de exemplo -->
+
+                    </div>
+                </div>
+
+                <div class="metrics-card">
+                    <div>📊 MÉTRICAS DO SERVIDOR WS</div>
+                    <div style="margin-top: 4px;">
+                        Latência Média: <strong id="latenciaMedia">0ms</strong>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Lado Direito: Terminal Console -->
+            <div class="console-panel">
+                <div class="console-header">
+                    💻 TERMINAL DE LOGS WEBSOCKET
+                </div>
+                <div class="console-logs" id="consoleLogs">
+                    <!-- Registros visuais estáticos -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const usuarioLogado = JSON.parse(localStorage.getItem('usuarioLogado'));
+        const salaAtiva = JSON.parse(localStorage.getItem('salaAtiva'));
+
+        if (!usuarioLogado || !salaAtiva) {
+            alert('Acesso negado! Por favor faça login e entre em uma sala.');
+            window.location.href = '/login';
+            return;
+        }
+
+        usuarioLogado.id_quadro = salaAtiva.id_quadro || salaAtiva.id;
+        document.getElementById('roomTitle').innerText = `KANBAN LIVE — ${salaAtiva.nome_projeto || salaAtiva.codigo}`;
+
+        // Variable global
+        let primeiraColunaId = null;
+        let historicoLogsGeral = [];
+        let historicoLatencias = [];
+        let inicioMedicaoMs = 0;
+        let todosMembrosQuadro = [];
+        let idsBloqueadosGeral = [];
+
+        // --- CONEXÃO WEBSOCKET ---
+        const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+        const ws = new WebSocket(`${protocol}//${window.location.host}/ws`);
+
+        const statusDot = document.getElementById('statusDot');
+        const statusText = document.getElementById('statusText');
+        const broadcastMsg = document.getElementById('broadcastMsg');
+
+        ws.onopen = () => {
+            statusDot.classList.add('online');
+            statusText.innerText = 'WS: CONECTADO';
+            ws.send(JSON.stringify({ type: 'JOIN_ROOM', payload: { usuario: usuarioLogado, sala: salaAtiva }}));
+        };
+
+        ws.onclose = () => {
+            statusDot.classList.remove('online');
+            statusText.innerText = 'WS: DESCONECTADO';
+        };
+
+        const wsSendOriginal = ws.send;
+        ws.send = function (data) {
+            inicioMedicaoMs = performance.now(); // Grava o instante do envio
+            atualizarMetricasWS();
+            return wsSendOriginal.apply(this, arguments);
+        };
+
+        ws.onmessage = (event) => {
+
+
+            // Calcula a latência baseada no tempo entre o envio (ws.send) e a resposta do servidor
+            if (inicioMedicaoMs > 0) {
+                const latenciaCalculada = Math.round(performance.now() - inicioMedicaoMs);
+                inicioMedicaoMs = 0; // Reseta a medição
+                atualizarMetricasWS(latenciaCalculada);
+            } else {
+                atualizarMetricasWS();
+            }
+
+            const { type, payload } = JSON.parse(event.data);
+
+            if (type === 'USER_BLOCKED_KICK') {
+                console.warn('⚠️ Usuário bloqueado recebido do servidor.');
+
+                // Cancela manipuladores de reconexão automática (se houver)
+                ws.onclose = null;
+                ws.onerror = null;
+
+                // Alerta e redireciona imediatamente
+                alert(payload.msg || 'Acesso revogado: Você foi bloqueado pelo administrador deste quadro.');
+
+                ws.close();
+                window.location.href = '/JoinRoom';
+                return;
+            }
+            if (type === 'INITIAL_STATE') {
+                renderBoard(payload.columns);
+                renderUsers(payload.users);
+                todosMembrosQuadro = payload.membros || [];
+                idsBloqueadosGeral = payload.bloqueados || [];
+                renderUsersModalLog(todosMembrosQuadro, payload.users, idsBloqueadosGeral);
+                historicoLogsGeral = Array.isArray(payload.logs) ? payload.logs : [];
+                renderizarLogs(historicoLogsGeral);
+
+                // Garante a exibição do botão caso o perfil venha no estado inicial do servidor
+                const btnLogs = document.getElementById('btnLogsFeed');
+                if (btnLogs) {
+                    // Converte para minúsculo para aceitar 'admin', 'ADMIN', 'Admin', etc.
+                    const perfilNormalizado = String(payload.perfil || '').toLowerCase();
+
+                    if (perfilNormalizado === 'admin') {
+                        btnLogs.style.display = 'inline-flex';
+                    } else {
+                        btnLogs.style.display = 'none';
+                    }
+                }
+
+                // Renderiza o histórico recuperado do banco
+                if (Array.isArray(payload.logs)) {
+                    document.getElementById('activityFeedList').innerHTML = '';
+                    payload.logs.reverse().forEach(log => appendLogItem(log));
+                }
+            }
+            if (type === 'NEW_LOG') {
+                appendLogItem(payload);
+                historicoLogsGeral.unshift(payload);
+                renderizarLogs(historicoLogsGeral);
+            }
+            if (type === 'USERS_UPDATE') {
+                renderUsers(payload.users);
+                renderUsersModalLog(todosMembrosQuadro, payload.users);
+                // Se o backend enviar os bloqueados atualizados no USERS_UPDATE
+                if (payload.bloqueados) {
+                    idsBloqueadosGeral = payload.bloqueados;
+                }
+
+                renderUsersModalLog(todosMembrosQuadro, payload.users, idsBloqueadosGeral);
+                if (payload.msg && broadcastMsg) broadcastMsg.innerText = payload.msg;
+            }
+            if (type === 'USER_BLOCKED_STATUS_CHANGED') {
+                idsBloqueadosGeral = payload.bloqueados || [];
+                renderUsersModalLog(todosMembrosQuadro, payload.users, idsBloqueadosGeral);
+            }
+            if (type === 'TASK_CREATED') {
+                addTaskToDOM(payload.task);
+                const titulo = payload.task.titulo || payload.task.title;
+                broadcastMsg.innerText = `${payload.user} criou a tarefa "${titulo}"`;
+            }
+            if (type === 'CARD_MOVED') {
+                const { id_tarefa, id_coluna, user } = payload;
+
+                // Procura o elemento do cartão na página
+                const card = document.querySelector(`.card[data-id="${id_tarefa}"]`);
+                const novaColunaContainer = document.getElementById(`col-${id_coluna}`);
+
+                if (card && novaColunaContainer) {
+                    novaColunaContainer.appendChild(card); // Move o cartão na tela dos outros
+                }
+
+                removeCardActionBadge(id_tarefa);
+
+                if (user) {
+                    broadcastMsg.innerText = `${user} moveu um cartão de coluna.`;
+                }
+            }
+            if (type === 'TASK_MOVING') {
+                const { id_tarefa, user } = payload;
+
+                // Exibe a tag MOVE_TASK na tela de todos os colegas conectados no mesmo instante
+                triggerCardActionBadge(id_tarefa, 'MOVE_TASK');
+                lockCard(id_tarefa, false); // Trava o card na tela dos colegas
+
+                if (user) {
+                    broadcastMsg.innerText = `[Bloqueado] ${user} está arrastando uma tarefa...`;
+                }
+            }
+            if (type === 'TASK_STOPPED_MOVING') {
+                const { id_tarefa } = payload;
+                // Remove a badge assim que ele soltar
+                removeCardActionBadge(id_tarefa);
+                unlockCard(id_tarefa);// Destrava o card
+            }
+            if (type === 'TASK_DELETED') {
+                const { id_tarefa, user } = payload;
+
+                // Remove o cartão do DOM instantaneamente
+                const card = document.querySelector(`.card[data-id="${id_tarefa}"]`);
+                if (card) {
+                    card.remove();
+                }
+
+                if (user) {
+                    broadcastMsg.innerText = `${user} excluiu uma tarefa.`;
+                }
+            }
+            if (type === 'TASK_UPDATED') {
+                const { task, user } = payload;
+                const idTarefa = task.id_tarefa;
+
+                // Atualiza o cartão existente removendo e reinserindo com os dados novos
+                const cardExistente = document.querySelector(`.card[data-id="${idTarefa}"]`);
+                if (cardExistente) {
+                    const idColuna = task.id_coluna;
+                    cardExistente.remove();
+                    addTaskToDOM(task, idColuna);
+                    triggerCardActionBadge(idTarefa, 'EDIT_TASK');
+                }
+
+                removeCardActionBadge(idTarefa);
+
+                if (user) {
+                    broadcastMsg.innerText = `${user} atualizou a tarefa "${task.titulo}".`;
+                }
+            }
+            if (type === 'TASK_EDITING') {
+                const { id_tarefa, user } = payload;
+
+                // Exibe a badge no cartão para todos os usuários online
+                triggerCardActionBadge(id_tarefa, 'EDIT_TASK');
+                lockCard(id_tarefa, false); // Trava o card na tela dos colegas
+
+                if (user) {
+                    broadcastMsg.innerText = `[Bloqueado] ${user} está editando uma tarefa...`;
+                }
+            }
+            if (type === 'TASK_STOPPED_EDITING') {
+                const { id_tarefa } = payload;
+                removeCardActionBadge(id_tarefa);
+                unlockCard(id_tarefa);
+            }
+            if (type === 'CARD_MOVED' || type === 'TASK_UPDATED') {
+                // Garante o desbloqueio ao finalizar qualquer ação
+                unlockCard(payload.id_tarefa || payload.task?.id_tarefa);
+            }
+        };
+
+        // --- MANIPULAÇÃO DO DOM ---
+        function renderBoard(columnsData) {
+            const board = document.getElementById('kanbanBoard');
+            if (!board) return;
+
+            board.innerHTML = '';
+
+            if (Array.isArray(columnsData) && columnsData.length > 0) {
+                // Salva o ID da primeira coluna encontrada para usar como padrão no formulário
+                primeiraColunaId = columnsData[0].id_coluna;
+
+                columnsData.forEach(col => {
+                    const section = document.createElement('section');
+                    section.className = 'column';
+
+                    section.innerHTML = `
+                        <div class="column-header">
+                            <span>${(col.nome_coluna || 'COLUNA').toUpperCase()}</span>
+                        </div>
+                        <div class="cards-container" id="col-${col.id_coluna}"></div>
+                    `;
+
+                    const cardsContainer = section.querySelector('.cards-container');
+
+                    // Permite soltar elementos sobre o container
+                    cardsContainer.ondragover = (e) => {
+                        e.preventDefault();
+                    };
+
+                    // Evento dissimulado quando o cartão é solto na coluna
+                    cardsContainer.ondrop = (e) => {
+                        e.preventDefault();
+                        const idTarefa = e.dataTransfer.getData('text/plain');
+                        const idNovaColuna = col.id_coluna;
+
+                        // Move visualmente de imediato
+                        const cardElement = document.querySelector(`.card[data-id="${idTarefa}"]`);
+                        if (cardElement) {
+                            cardsContainer.appendChild(cardElement);
+                        }
+
+                        // Dispara o evento de movimento via WebSocket
+                        ws.send(JSON.stringify({
+                            type: 'MOVE_TASK',
+                            payload: {
+                                id_tarefa: Number(idTarefa),
+                                id_coluna: Number(idNovaColuna)
+                            }
+                        }));
+                    };
+
+                    board.appendChild(section);
+
+                    const tarefas = col.cartao_tarefa || col.tarefas || [];
+                    tarefas.forEach(task => addTaskToDOM(task, col.id_coluna));
+                });
+            }
+        }
+
+        function triggerCardActionBadge(idTarefa, actionName) {
+            const badge = document.getElementById(`badge-${idTarefa}`);
+            if (badge) {
+                badge.innerText = actionName;
+                badge.style.display = 'inline-block';
+            }
+        }
+        function removeCardActionBadge(idTarefa) {
+            const badge = document.getElementById(`badge-${idTarefa}`);
+            if (badge) {
+                if (badge.dataset.timeoutId) {
+                    clearTimeout(Number(badge.dataset.timeoutId));
+                }
+                badge.style.display = 'none';
+                badge.innerText = '';
+            }
+        }
+
+        function addTaskToDOM(task, idColunaExplicit) {
+            const idTarefa = task.id_tarefa || task.id;
+            const titulo = task.titulo || task.title;
+            const descricao = task.descricao || '';
+            const prioridade = task.prioridade || 'Média';
+            const idResp = task.id_usuario_responsavel || task.usuario?.id_usuario;
+            const responsavel = task.usuario?.nome_completo || task.resp || 'Sem Resp.';
+            const idColuna = task.id_coluna || task.coluna?.id_coluna || idColunaExplicit || primeiraColunaId;
+
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.setAttribute('draggable', 'true'); // Torna o cartão arrastável
+            card.dataset.id = idTarefa;            // Guarda o ID da tarefa no elemento HTML
+
+            // Armazena dados no Dataset para facilitar a edição no Modal
+            card.dataset.titulo = titulo;
+            card.dataset.descricao = descricao;
+            card.dataset.prioridade = prioridade;
+            card.dataset.idResp = idResp || '';
+
+            // Evento quando o usuário começa a arrastar o cartão
+            card.ondragstart = (e) => {
+                e.dataTransfer.setData('text/plain', idTarefa);
+                card.classList.add('dragging');
+                // Exibe "MOVE_TASK" instantaneamente na tela do próprio usuário que está arrastando
+                triggerCardActionBadge(idTarefa, 'MOVE_TASK');
+                // Notifica instantaneamente o servidor que o movimento COMEÇOU
+                ws.send(JSON.stringify({
+                    type: 'START_MOVE_TASK',
+                    payload: { id_tarefa: Number(idTarefa) }
+                }));
+            };
+
+            card.ondragend = () => {
+                card.classList.remove('dragging');
+                // Desliga a badge localmente
+                removeCardActionBadge(idTarefa);
+                // Avisa a todos que PAROU de mover (caso solte fora de uma coluna válida)
+                ws.send(JSON.stringify({
+                    type: 'STOP_MOVE_TASK',
+                    payload: { id_tarefa: Number(idTarefa) }
+                }));
+            };
+
+            const prioClass = `tag-${prioridade.toLowerCase()}`;
+
+            card.innerHTML = `
+                <button class="card-info-btn" title="Detalhes/Editar" onclick="openEditModal(${idTarefa})">⚙️</button>
+                <div class="card-title" style="padding-right: 20px;">${titulo}</div>
+                ${descricao ? `<div class="card-desc">${descricao}</div>` : ''}
+                <div class="card-footer">
+                    <span class="tag ${prioClass}">${prioridade}</span>
+                    <span class="card-action-badge" id="badge-${idTarefa}"></span>
+                    <span>Resp: ${responsavel}</span>
+                </div>
+            `;
+
+            // Encontra a coluna correspondente no DOM (ex: id="col-12") ou joga no primeiro container encontrado
+            const col = document.getElementById(`col-${idColuna}`) || document.querySelector('.cards-container');
+            if (col) col.appendChild(card);
+        }
+
+        function appendLogItem(log) {
+            const list = document.getElementById('activityFeedList');
+            if (!list) return;
+
+            const hora = new Date(log.timestamp_evento).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+            const item = document.createElement('div');
+            item.className = 'feed-item';
+            item.innerHTML = `
+        <div class="feed-time">${hora}</div>
+        <div>${log.detalhes_payload}</div>
+    `;
+
+            // Insere o log mais recente no topo
+            list.insertBefore(item, list.firstChild);
+        }
+
+        function renderUsers(users) {
+            const userList = Array.isArray(users) ? users : [];
+
+            const container = document.getElementById('avatarsContainer');
+            if (container) {
+                container.innerHTML = userList.map(u => {
+                    const nome = u?.nome_user || u?.nome || u?.nome_completo || 'Usuário';
+                    const avatar = u?.avatar || nome.substring(0, 2).toUpperCase();
+                    return `<div class="avatar" title="${nome}">${avatar}</div>`;
+                }).join('');
+            }
+
+            const selectResp = document.getElementById('taskResp');
+            if (selectResp) {
+                selectResp.innerHTML = '<option value="">Selecione um responsável</option>';
+
+                userList.forEach(u => {
+                    if (!u) return;
+
+                    const idUsuario = u.id_user || u.id || u.id_usuario;
+                    const nomeUsuario = u.nome_user || u.nome || u.nome_completo;
+
+                    if (idUsuario) {
+                        const option = document.createElement('option');
+                        option.value = idUsuario;
+                        option.textContent = nomeUsuario || `Usuário (${idUsuario})`;
+                        selectResp.appendChild(option);
+                    }
+                });
+            }
+        }
+        function renderUsersModalLog(membrosQuadro, usuariosOnline = [], idsBloqueados = []) {
+            const usersList = document.getElementById('usersList');
+            if (!usersList) return;
+
+            usersList.innerHTML = '';
+
+            // Garante que trabalharemos com arrays válidos
+            const listaMembros = Array.isArray(membrosQuadro) ? membrosQuadro : [];
+            const listaOnline = Array.isArray(usuariosOnline) ? usuariosOnline : [];
+            const listaBloqueados = Array.isArray(idsBloqueados) ? idsBloqueados.map(Number) : [];
+
+            if (listaMembros.length === 0) {
+                usersList.innerHTML = '<div style="color: #64748b; font-size: 0.8rem; padding: 8px;">Nenhum integrante vinculado a este quadro.</div>';
+                return;
+            }
+
+            // Mapeia os IDs dos usuários ativos para consulta rápida
+            const idsOnline = new Set(listaOnline.map(u => u.id_user || u.id_usuario));
+            const setBloqueados = new Set(listaBloqueados);
+
+            listaMembros.forEach((membro, index) => {
+                if (!membro) return;
+
+                const idMembro = Number(membro.id_usuario);
+                const nomeMembro = membro.nome || 'Usuário';
+
+
+                const isBloqueado = setBloqueados.has(idMembro);
+                const isOnline = idsOnline.has(idMembro);
+
+                const item = document.createElement('div');
+                item.className = 'user-item';
+
+                let badgeHTML = '';
+                let btnHTML = '';
+
+                if (isBloqueado) {
+                    badgeHTML = `<div class="status-badge status-block"">🚫 BLOQUEADO</div>`;
+                    btnHTML = `<button class="btn-block-user btn-unblock" title="Desbloquear usuário neste quadro">🔓</button>`;
+                } else if (isOnline) {
+                    badgeHTML = `<div class="status-badge status-online">✔ ONLINE</div>`;
+                    btnHTML = `<button class="btn-block-user" title="Bloquear usuário neste quadro">🚫</button>`;
+                } else {
+                    badgeHTML = `<div class="status-badge status-offline">✖ DESCONECTADO</div>`;
+                    btnHTML = `<button class="btn-block-user" title="Bloquear usuário neste quadro">🚫</button>`;
+                }
+
+                item.innerHTML = `
+                    ${btnHTML}
+                    <div style="display: flex; flex-direction: column; gap: 4px; width: 100%;">
+                        <div class="user-info" style="justify-content: space-between;">
+                            <span>👤 <strong>${nomeMembro}</strong></span>
+                            <span class="user-tag">ws_00${index + 1}</span>
+                        </div>
+                        <div>
+                            ${badgeHTML}
+                        </div>
+                    </div>
+                `;
+                const btnAction = item.querySelector('.btn-block-user');
+                if (btnAction) {
+                    btnAction.addEventListener('click', () => {
+                        if (isBloqueado) {
+                            desbloquearUsuario(idMembro, nomeMembro);
+                        } else {
+                            bloquearUsuario(idMembro, nomeMembro);
+                        }
+                    });
+                }
+                usersList.appendChild(item);
+            });
+        }
+
+        function bloquearUsuario(idUsuarioAlvo, nomeUsuario) {
+            if (confirm(`Tem certeza que deseja bloquear o usuário "${nomeUsuario}" neste quadro?`)) {
+                // Envia a solicitação via WebSocket para o servidor
+                ws.send(JSON.stringify({
+                    type: 'BLOQUEAR_USUARIO',
+                    payload: {
+                        id_usuario_bloqueado: idUsuarioAlvo,
+                        nome_usuario_bloqueado: nomeUsuario
+                    }
+                }));
+            }
+        }
+
+        function desbloquearUsuario(idUsuarioAlvo, nomeUsuario) {
+            if (confirm(`Deseja desbloquear o usuário "${nomeUsuario}" neste quadro?`)) {
+                ws.send(JSON.stringify({
+                    type: 'DESBLOQUEAR_USUARIO',
+                    payload: {
+                        id_usuario_desbloqueado: idUsuarioAlvo,
+                        nome_usuario_desbloqueado: nomeUsuario
+                    }
+                }));
+            }
+        }
+
+        function renderizarLogs(logs) {
+            const consoleLogs = document.getElementById('consoleLogs');
+            if (!consoleLogs) return;
+
+            consoleLogs.innerHTML = '';
+
+            if (!Array.isArray(logs) || logs.length === 0) {
+                consoleLogs.innerHTML = '<div class="log-line"><span class="log-text">Nenhum registro de log encontrado.</span></div>';
+                return;
+            }
+
+            // Cria uma cópia e inverte para exibir em ordem cronológica de leitura (antigo -> novo)
+            const logsOrdenados = [...logs].reverse();
+
+            logsOrdenados.forEach(log => {
+                const linha = document.createElement('div');
+                linha.className = 'log-line';
+
+                const dataFormatada = log.timestamp_evento
+                    ? new Date(log.timestamp_evento).toLocaleTimeString('pt-BR')
+                    : new Date().toLocaleTimeString('pt-BR');
+
+                const tipoEvento = log.tipo_evento || 'LOG';
+                const detalhes = typeof log.detalhes_payload === 'object'
+                    ? JSON.stringify(log.detalhes_payload)
+                    : (log.detalhes_payload || '');
+
+                linha.innerHTML = `
+            <span class="log-time">${dataFormatada}</span>
+            <span class="log-type-in">[${tipoEvento}]</span>
+            <span class="log-text">${detalhes}</span>
+        `;
+
+                consoleLogs.appendChild(linha);
+            });
+
+            // Rola automaticamente o console para a mensagem mais recente
+            consoleLogs.scrollTop = consoleLogs.scrollHeight;
+        }
+
+        function atualizarMetricasWS(latencia = null) {
+            //  Cálculo da Latência Média
+            if (latencia !== null && latencia > 0) {
+                historicoLatencias.push(latencia);
+                // Mantém apenas os últimos 10 testes de latência para a média ser precisa e atual
+                if (historicoLatencias.length > 10) historicoLatencias.shift();
+
+                const soma = historicoLatencias.reduce((acc, curr) => acc + curr, 0);
+                const media = Math.round(soma / historicoLatencias.length);
+
+                const elLatencia = document.getElementById('latenciaMedia');
+                if (elLatencia) {
+                    elLatencia.innerText = `${media}ms`;
+                }
+            }
+        }
+        setInterval(() => {
+            if (ws && ws.readyState === WebSocket.OPEN) {
+                inicioPing = performance.now();
+                ws.send(JSON.stringify({ type: 'PING' }));
+            }
+        }, 5000);
+
+        function lockCard(idTarefa, isCurrentOwner = false) {
+            const card = document.querySelector(`.card[data-id="${idTarefa}"]`);
+            if (!card) return;
+
+            // Se o evento não veio do próprio usuário que está mexendo, bloqueia o cartão na tela dos outros
+            if (!isCurrentOwner) {
+                card.classList.add('locked');
+                card.setAttribute('draggable', 'false');
+            }
+        }
+
+        function unlockCard(idTarefa) {
+            const card = document.querySelector(`.card[data-id="${idTarefa}"]`);
+            if (!card) return;
+
+            card.classList.remove('locked');
+            card.setAttribute('draggable', 'true');
+        }
+
+        function toggleFeed() {
+            if (activityFeed) activityFeed.classList.toggle('open');
+            if (feedOverlay) feedOverlay.classList.toggle('active');
+        }
+
+        function closeFeed() {
+            if (activityFeed) activityFeed.classList.remove('open');
+            if (feedOverlay) feedOverlay.classList.remove('active');
+        }
+
+        window.openEditModal = function(idTarefa) {
+            const card = document.querySelector(`.card[data-id="${idTarefa}"]`);
+            if (!card) return;
+
+            document.getElementById('editTaskId').value = idTarefa;
+            document.getElementById('editTaskTitle').value = card.dataset.titulo || '';
+            document.getElementById('editTaskDesc').value = card.dataset.descricao || '';
+            document.getElementById('editTaskPriority').value = card.dataset.prioridade || 'Média';
+
+            // Clona as opções de responsáveis do select principal para o select do modal de edição
+            const selectOriginal = document.getElementById('taskResp');
+            const selectEdit = document.getElementById('editTaskResp');
+            if (selectOriginal && selectEdit) {
+                selectEdit.innerHTML = selectOriginal.innerHTML;
+                selectEdit.value = card.dataset.idResp || '';
+            }
+
+            document.getElementById('editTaskModal').classList.add('active');
+
+            triggerCardActionBadge(idTarefa, 'EDIT_TASK');
+
+            ws.send(JSON.stringify({
+                type: 'START_EDIT_TASK',
+                payload: { id_tarefa: Number(idTarefa) }
+            }));
+        };
+        window.addEventListener('click', (evento) => {
+            if (evento.target === logsModal) {
+                logsModal.style.display = 'none';
+            }
+        });
+
+        // --- EVENTOS DO MODAL ---
+        const modal = document.getElementById('taskModal');
+        const formTask = document.getElementById('formCreateTask');
+        const btnCancelModal = document.getElementById('btnCancelModal');
+        const closeEditModal = () => {
+            const id_tarefa = Number(document.getElementById('editTaskId').value);
+
+            document.getElementById('editTaskModal').classList.remove('active');
+
+            if (id_tarefa) {
+                // Remove a badge localmente
+                removeCardActionBadge(id_tarefa);
+
+                // Notifica a sala que parou de editar
+                ws.send(JSON.stringify({
+                    type: 'STOP_EDIT_TASK',
+                    payload: { id_tarefa }
+                }));
+            }
+        };
+        const logsModal = document.getElementById('logsModal');
+        const btnLogsFeed = document.getElementById('btnLogsFeed');
+        const btnCloseLogsModal = document.getElementById('btnCloseLogsModal');
+        const btnToggleFeed = document.getElementById('btnToggleFeed');
+        const btnCloseFeedMobile = document.getElementById('btnCloseFeedMobile');
+        const activityFeed = document.getElementById('activityFeed');
+        const feedOverlay = document.getElementById('feedOverlay');
+
+        document.getElementById('btnOpenModal').onclick = () => modal.classList.add('active');
+        document.getElementById('btnCloseModal').onclick = () => {
+            modal.classList.remove('active');
+            if (formTask) formTask.reset();
+        };
+        document.getElementById('btnCloseEditModal').onclick = closeEditModal;
+        document.getElementById('btnCancelEditModal').onclick = closeEditModal;
+        document.getElementById('formEditTask').onsubmit = (e) => {
+            e.preventDefault();
+            const id_tarefa = Number(document.getElementById('editTaskId').value);
+            const titulo = document.getElementById('editTaskTitle').value;
+            const descricao = document.getElementById('editTaskDesc').value;
+            const prioridade = document.getElementById('editTaskPriority').value;
+            const id_usuario_responsavel = document.getElementById('editTaskResp').value || null;
+
+            ws.send(JSON.stringify({
+                type: 'UPDATE_TASK',
+                payload: {
+                    id_tarefa,
+                    titulo,
+                    descricao,
+                    prioridade,
+                    id_usuario_responsavel
+                }
+            }));
+
+            closeEditModal();
+        };
+        document.getElementById('btnDeleteTask').onclick = () => {
+            const id_tarefa = Number(document.getElementById('editTaskId').value);
+
+            if (confirm('Tem certeza que deseja excluir esta tarefa?')) {
+                ws.send(JSON.stringify({
+                    type: 'DELETE_TASK',
+                    payload: { id_tarefa }
+                }));
+                closeEditModal();
+            }
+        };
+
+        if (btnLogsFeed) {
+            btnLogsFeed.addEventListener('click', (evento) => {
+                evento.preventDefault();
+                logsModal.style.display = 'flex';
+            });
+        }
+
+        if (btnCloseLogsModal) {
+            btnCloseLogsModal.addEventListener('click', () => {
+                logsModal.style.display = 'none';
+            });
+        }
+
+        if (btnCancelModal) {
+            btnCancelModal.onclick = () => {
+                modal.classList.remove('active');
+                if (formTask) formTask.reset();
+            };
+        }
+
+        if (formTask) {
+            formTask.onsubmit = (e) => {
+                e.preventDefault();
+
+                const titulo = document.getElementById('taskTitle').value;
+                const descricao = document.getElementById('taskDesc').value;
+                const prioridade = document.getElementById('taskPriority').value;
+                const id_usuario_responsavel = document.getElementById('taskResp').value || null;
+
+                if (!titulo) return alert('Informe o título da tarefa!');
+
+                ws.send(JSON.stringify({
+                    type: 'CREATE_TASK',
+                    payload: {
+                        titulo,
+                        descricao,
+                        prioridade,
+                        id_usuario_responsavel,
+                        id_coluna: primeiraColunaId // Envia dinamicamente a ID da primeira coluna ativa
+                    }
+                }));
+
+                formTask.reset();
+                modal.classList.remove('active');
+            };
+        }
+
+        if (btnToggleFeed) btnToggleFeed.addEventListener('click', toggleFeed);
+        if (btnCloseFeedMobile) btnCloseFeedMobile.addEventListener('click', closeFeed);
+        if (feedOverlay) feedOverlay.addEventListener('click', closeFeed);
+    });
+</script>
+</body>
+</html>
